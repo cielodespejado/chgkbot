@@ -115,9 +115,5 @@ def nadya(m):
 
 if __name__ == '__main__':
     bot.polling(none_stop=True) 
-    
 
 #bot.polling()
-
-# 131041034 надин
-# 55030446 мой
