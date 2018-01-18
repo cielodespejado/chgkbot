@@ -64,13 +64,13 @@ def get_random(m):
     f = browse.get()
     quest[cid] = f[0]
     answ[cid] = f[1]
-    img = f[2]
+    img[cid] = f[2]
     keyboard = types.InlineKeyboardMarkup()
     callback_button = types.InlineKeyboardButton(text="Показать ответ", callback_data="answer")
     callback_button1 = types.InlineKeyboardButton(text="Запустить таймер", callback_data="timer")
     keyboard.add(callback_button, callback_button1)
     if img:
-        bot.send_photo(cid, img)
+        bot.send_photo(cid, img[cid])
     bot.send_message(cid, quest[cid], reply_markup=keyboard)
    
 @bot.callback_query_handler(func=lambda call: True)
@@ -79,21 +79,22 @@ def callback_inline(call):
     if call.message:
         if call.data == "timer":
             sent = bot.send_message(cid, "01:00")
-            mid = sent.message_id
+            global t_mid
+            t_mid = sent.message_id
             interval = 20
             time.sleep(1)
             while interval:
                 interval -= 1
                 mins, secs = divmod(interval, 60)
                 t = '{:01d}:{:02d}'.format(mins, secs)
-                bot.edit_message_text(chat_id=cid, message_id=mid, text=t)
+                bot.edit_message_text(chat_id=cid, message_id=t_mid, text=t)
                 time.sleep(1)
-            bot.edit_message_text(cid, mid, "Минута прошла")
+            bot.edit_message_text(cid, t_mid, "Минута прошла")
             time.sleep(5)
-            bot.delete_message(cid, mid)
+            bot.delete_message(cid, t_mid)
         elif call.data == "answer":
-            if mid:
-                bot.delete_message(cid, mid)
+            if t_mid:
+                bot.delete_message(cid, t_mid)
             bot.send_message(cid, answ[cid])    
 
 @bot.message_handler(commands=['timer'])    
