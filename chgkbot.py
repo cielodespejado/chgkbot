@@ -92,7 +92,7 @@ def callback_inline(call):
                 t = '{:01d}:{:02d}'.format(mins, secs)
                 bot.edit_message_text(chat_id=cid, message_id=mid, text=t)
                 time.sleep(1)
-            bot.edit_message_text(cid, mid, "Минута прошла")
+            bot.edit_message_text(chat_id=cid, message_id=mid, text="Время истекло")
             time.sleep(5)
             bot.delete_message(cid, mid)
         elif call.data == "answer":
@@ -114,7 +114,7 @@ def timer(m):
         time.sleep(1)
         bot.edit_message_text(chat_id=cid, message_id=mid, text=t)
         if interval == 0:
-            bot.edit_message_text(chat_id=cid, message_id=mid, text="Минута прошла")    
+            bot.edit_message_text(chat_id=cid, message_id=mid, text="Время истекло")    
 
 if __name__ == '__main__':
     bot.polling(none_stop=True) 
