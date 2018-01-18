@@ -74,7 +74,7 @@ def get_random(m):
     keyboard.add(callback_button, callback_button1)
     if img[cid]:
         bot.send_photo(cid, img[cid])
-    bot.send_message(cid, quest[cid], reply_markup=keyboard)
+    sent = bot.send_message(cid, quest[cid], reply_markup=keyboard)
     qid = sent.message_id
    
 @bot.callback_query_handler(func=lambda call: True)
