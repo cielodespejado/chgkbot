@@ -15,6 +15,7 @@ knownUsers = []
 userStep = {} 
 quest = {}
 answ = {}
+img = {}
     
 commands = {  'start': 'Bot description',
               'help': 'List of commands',
