@@ -1,1 +1,1 @@
-web: python chgkbot.py
+web: python chgkbot.py -p $PORT
