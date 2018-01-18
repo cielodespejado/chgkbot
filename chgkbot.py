@@ -93,6 +93,7 @@ def callback_inline(call):
                 bot.edit_message_text(chat_id=cid, message_id=mid, text=t)
                 time.sleep(1)
             bot.edit_message_text(chat_id=cid, message_id=mid, text="Время истекло")
+            
             time.sleep(5)
             bot.delete_message(cid, mid)
         elif call.data == "answer":
