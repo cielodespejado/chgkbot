@@ -102,7 +102,7 @@ def callback_inline(call):
             if timer:
                 timer = False
             bot.send_message(cid, answ[cid])
-            bot.edit_message_text(cid, qid, quest[cid])
+            bot.edit_message_text(chat_id=cid, message_id=qid, text=quest[cid])
 
 @bot.message_handler(commands=['timer'])    
 def timer(m):
