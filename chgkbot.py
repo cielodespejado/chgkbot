@@ -62,6 +62,7 @@ def get_random(m):
     global quest
     global answ
     global img
+    global qid
     cid = m.chat.id
     f = browse.get()
     quest[cid] = f[0]
@@ -74,6 +75,7 @@ def get_random(m):
     if img[cid]:
         bot.send_photo(cid, img[cid])
     bot.send_message(cid, quest[cid], reply_markup=keyboard)
+    qid = sent.message_id
    
 @bot.callback_query_handler(func=lambda call: True)
 def callback_inline(call):
@@ -99,7 +101,8 @@ def callback_inline(call):
         elif call.data == "answer":
             if timer:
                 timer = False
-            bot.send_message(cid, answ[cid])    
+            bot.send_message(cid, answ[cid])
+            bot.edit_message_text(cid, qid, quest[cid])
 
 @bot.message_handler(commands=['timer'])    
 def timer(m):
