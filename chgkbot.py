@@ -81,23 +81,23 @@ def callback_inline(call):
     if call.message:
         if call.data == "timer":
             sent = bot.send_message(cid, "01:00")
-            global t_mid
-            t_mid = sent.message_id
+            mid = sent.message_id
+            global timer
+            timer = True
             interval = 20
             time.sleep(1)
             while interval and t_mid:
                 interval -= 1
                 mins, secs = divmod(interval, 60)
                 t = '{:01d}:{:02d}'.format(mins, secs)
-                bot.edit_message_text(chat_id=cid, message_id=t_mid, text=t)
+                bot.edit_message_text(chat_id=cid, message_id=mid, text=t)
                 time.sleep(1)
-            bot.edit_message_text(cid, t_mid, "Минута прошла")
+            bot.edit_message_text(cid, mid, "Минута прошла")
             time.sleep(5)
-            bot.delete_message(cid, t_mid)
+            bot.delete_message(cid, mid)
         elif call.data == "answer":
-            if t_mid:
-                t_mid = False
-                #bot.delete_message(cid, t_mid)
+            if timer:
+                timer = False
             bot.send_message(cid, answ[cid])    
 
 @bot.message_handler(commands=['timer'])    
