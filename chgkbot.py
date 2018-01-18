@@ -85,7 +85,7 @@ def callback_inline(call):
             t_mid = sent.message_id
             interval = 20
             time.sleep(1)
-            while interval:
+            while interval and t_mid:
                 interval -= 1
                 mins, secs = divmod(interval, 60)
                 t = '{:01d}:{:02d}'.format(mins, secs)
@@ -96,7 +96,8 @@ def callback_inline(call):
             bot.delete_message(cid, t_mid)
         elif call.data == "answer":
             if t_mid:
-                bot.delete_message(cid, t_mid)
+                t_mid = False
+                #bot.delete_message(cid, t_mid)
             bot.send_message(cid, answ[cid])    
 
 @bot.message_handler(commands=['timer'])    
