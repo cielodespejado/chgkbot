@@ -60,6 +60,7 @@ def help(m):
 def get_random(m):
     global quest
     global answ
+    global img
     cid = m.chat.id
     f = browse.get()
     quest[cid] = f[0]
