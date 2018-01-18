@@ -71,7 +71,7 @@ def get_random(m):
     callback_button = types.InlineKeyboardButton(text="Показать ответ", callback_data="answer")
     callback_button1 = types.InlineKeyboardButton(text="Запустить таймер", callback_data="timer")
     keyboard.add(callback_button, callback_button1)
-    if img:
+    if img[cid]:
         bot.send_photo(cid, img[cid])
     bot.send_message(cid, quest[cid], reply_markup=keyboard)
    
