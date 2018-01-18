@@ -88,12 +88,12 @@ def callback_inline(call):
                 t = '{:01d}:{:02d}'.format(mins, secs)
                 bot.edit_message_text(chat_id=cid, message_id=mid, text=t)
                 time.sleep(1)
-                if call.data == "answer":
-                    break
-            bot.edit_message_text(chat_id=cid, message_id=mid, text="Минута прошла")
+            bot.edit_message_text(cid, mid, "Минута прошла")
             time.sleep(5)
-            bot.delete_message(chat_id=cid, message_id=mid)
+            bot.delete_message(cid, mid)
         elif call.data == "answer":
+            if mid:
+                bot.delete_message(cid, mid)
             bot.send_message(cid, answ[cid])    
 
 @bot.message_handler(commands=['timer'])    
