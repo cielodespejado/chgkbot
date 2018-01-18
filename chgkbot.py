@@ -84,9 +84,9 @@ def callback_inline(call):
             mid = sent.message_id
             global timer
             timer = True
-            interval = 20
+            interval = 60
             time.sleep(1)
-            while interval and t_mid:
+            while interval and timer:
                 interval -= 1
                 mins, secs = divmod(interval, 60)
                 t = '{:01d}:{:02d}'.format(mins, secs)
