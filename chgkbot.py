@@ -41,6 +41,8 @@ def start(m):
         userStep[cid] = 0
         bot.send_message(cid, "Привет, добро пожаловать")
         help(m)  
+    elif cid==131041034:
+        bot.send_message(cid, "Привет, Наденька!")
     else:
         bot.send_message(cid, "Снова привет!")
 
@@ -106,12 +108,6 @@ def timer(m):
         bot.edit_message_text(chat_id=cid, message_id=mid, text=t)
         if interval == 0:
             bot.edit_message_text(chat_id=cid, message_id=mid, text="Минута прошла")    
-
-@bot.message_handler(func=lambda message: message.chat.id == 131041034)
-def nadya(m):
-   cid = m.chat.id
-   bot.send_message(cid, 'Привет, Наденька')
- 
 
 if __name__ == '__main__':
     bot.polling(none_stop=True) 
