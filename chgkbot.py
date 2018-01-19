@@ -15,11 +15,15 @@ knownUsers = []
 userStep = {} 
 quest = {}
 answ = {}
-img = {}
-    
+img_q = {}
+img_a = {}
+year = '2007'    
 commands = {  'start': 'Bot description',
               'help': 'List of commands',
               'question': 'Get random question from db.chgk.info',
+#              'Set year': 'Get question from year range'
+#              'Set editor': 'Get question from the editor'
+#              'Set author': 'Get question from the author'
               'timer': 'Start 1 minute timer',
            }
 
@@ -61,19 +65,21 @@ def help(m):
 def get_random(m):
     global quest
     global answ
-    global img
+    global img_q
+    global img_a
     global qid
     cid = m.chat.id
-    f = browse.get()
+    f = browse.get(year)
     quest[cid] = f[0]
     answ[cid] = f[1]
-    img[cid] = f[2]
+    img_q[cid] = f[2]
+    img_a[cid] = f[3]
     keyboard = types.InlineKeyboardMarkup()
     callback_button = types.InlineKeyboardButton(text="Показать ответ", callback_data="answer")
     callback_button1 = types.InlineKeyboardButton(text="Запустить таймер", callback_data="timer")
     keyboard.add(callback_button, callback_button1)
-    if img[cid]:
-        bot.send_photo(cid, img[cid])
+    if img_q[cid]:
+        bot.send_photo(cid, img_q[cid])
     sent = bot.send_message(cid, quest[cid], reply_markup=keyboard)
     qid = sent.message_id
    
@@ -102,7 +108,9 @@ def callback_inline(call):
             if timer:
                 timer = False
             bot.send_message(cid, answ[cid])
-            bot.edit_message_text(chat_id=cid, message_id=qid, text=quest[cid])
+            if img_a[cid]:
+                bot.send_photo(cid, img_a[cid])
+            bot.edit_message_text(chat_id=cid, message_id=qid, text=quest[cid]) 
 
 @bot.message_handler(commands=['timer'])    
 def timer(m):
@@ -124,3 +132,4 @@ if __name__ == '__main__':
     bot.polling(none_stop=True) 
 
 #bot.polling()
+
