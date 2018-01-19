@@ -18,7 +18,7 @@ answ = {}
 img_q = {}
 img_a = {}
 year = '2007'    
-commands = {  'start': 'Bot description',
+commands = {  'start': 'Описание бота',
               'help': 'List of commands',
               'question': 'Get random question from db.chgk.info',
 #              'Set year': 'Get question from year range'
