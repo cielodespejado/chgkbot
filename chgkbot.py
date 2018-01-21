@@ -12,7 +12,7 @@ bot = telebot.TeleBot(config['DEFAULT']['Token'])
 #bot = telebot.TeleBot(config.token)
 
 knownUsers = []
-userStep = {} 
+#userStep = {} 
 quest = {}
 answ = {}
 img_q = {}
@@ -27,29 +27,31 @@ commands = {  'start': 'Описание бота',
               'timer': 'Start 1 minute timer',
            }
 
-def get_user_step(uid):
-    if uid in userStep:
-        return userStep[uid]
-    else:
-        knownUsers.append(uid)
-        userStep[uid] = 0
-        return 0
+#def get_user_step(uid):
+#    if uid in userStep:
+#        return userStep[uid]
+#    else:
+#        knownUsers.append(uid)
+#        userStep[uid] = 0
+#        return 0
+
+
 
 @bot.message_handler(commands=['start'])
 def start(m):
     cid = m.chat.id
     if cid not in knownUsers:  
         knownUsers.append(cid)
-        u = open('uids.txt', 'w', encoding='utf_8')
-        u.write(str(cid)+'\n')
-        u.close()
-        userStep[cid] = 0
+        with open('uids.txt', 'w', encoding='utf_8') as u:
+          u.append(str(cid)+'\n')
         bot.send_message(cid, "Привет, добро пожаловать")
         help(m)  
     elif cid==131041034:
         bot.send_message(cid, "Привет, Наденька!")
+        help(m)
     else:
         bot.send_message(cid, "Снова привет!")
+        help(m)
 
 
 @bot.message_handler(commands=['help'])
@@ -129,7 +131,9 @@ def timer(m):
             bot.edit_message_text(chat_id=cid, message_id=mid, text="Время истекло")    
 
 if __name__ == '__main__':
-    bot.polling(none_stop=True) 
-
-#bot.polling()
+  with open('uids.txt', 'r', encoding='utf_8') as u:
+    for line in u.readlines():
+      if line not in knownUsers:
+        knownUsers.append(line)
+  bot.polling(none_stop=True) 
 
