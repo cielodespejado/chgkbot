@@ -90,11 +90,11 @@ def set_year(m):
     bot.send_message(cid, 'Введите начало интервала', reply_markup=types.ForceReply())
     time.sleep(10)
     if m.text.isdigit():
-      year1[cid] = message.text()
+      year1[cid] = int(m.text())
       bot.send_message(cid, 'Введите конец интервала', reply_markup=types.ForceReply())
       time.sleep(10)
       if m.text.isdigit():
-        year2[cid] = message.text()
+        year2[cid] = int(m.text())
         bot.send_message(cid, 'Интервал сохранён')
       else:
         bot.send_message(cid, 'Введите конец интервала', reply_markup=types.ForceReply())
