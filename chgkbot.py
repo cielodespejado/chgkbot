@@ -19,8 +19,6 @@ img_q = {}
 img_a = {}
 year1 = {}
 year2 = {}
-#year1 = '2007' 
-#year2 = str(time.gmtime().tm_year)
 
 commands = {  'start': 'Описание бота',
               'help': 'Список команд',
