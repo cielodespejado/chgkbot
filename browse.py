@@ -4,10 +4,7 @@ import requests
 import sys
 
 def get(year1, year2):
-    if year1 and year2:
-        url = 'http://db.chgk.info/random/from_'+year1+'-01-01/to_'+year2+'-12-31/types1/'
-    else:
-        url = 'http://db.chgk.info/random/from_2007-01-01/types1/'
+    url = 'http://db.chgk.info/random/from_'+year1+'-01-01/to_'+year2+'-12-31/types1/'
     with urllib.request.urlopen(url) as fp:
         soup = BeautifulSoup(fp, 'html.parser')
         question = soup.find_all('div','random_question', limit = 1)
@@ -67,6 +64,7 @@ def get(year1, year2):
 
     for i in range(0,a-1):
         answ.append(words[i])
+    answ.append('Выбранный диапазон лет: '+year1+'...'+year2+'\n')
         
     quest = (' '.join(quest))
     answ = (' '.join(answ))
