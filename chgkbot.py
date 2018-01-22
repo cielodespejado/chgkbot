@@ -21,7 +21,7 @@ qid = {}
 yid = {}
 year1 = {}
 year2 = {}
-global interval
+global years
 
 commands = {  'start': 'Описание бота',
               'help': 'Список команд',
@@ -96,7 +96,7 @@ def set_year(m):
     keyboard.add(callback_button, callback_button1, callback_button2)
     sent = bot.send_message(cid, 'Выберите начало интервала', reply_markup=keyboard)
     yid[cid] = sent.message_id
-    interval = 'start'
+    years = 'start'
 
 @bot.callback_query_handler(func=lambda call: True)
 def callback_inline(call):
@@ -171,7 +171,7 @@ def callback_inline(call):
           keyboard.add(callback_button, callback_button1, callback_button2, callback_button3, callback_button4, callback_button5, callback_button6, callback_button7, callback_button8, callback_button9)
           sent = bot.edit_message_text(chat_id=cid, message_id=yid[cid], text='Выберите начало интервала', reply_markup=keyboard)
           yid[cid] = sent.message_id 
-        elif int(call.data) in range(1991,2020) and interval=='start':
+        elif int(call.data) in range(1991,2020) and years=='start':
           year1[cid]=call.data
           keyboard = types.InlineKeyboardMarkup()
           callback_button = types.InlineKeyboardButton(text='1991-2000', callback_data='int1')
@@ -180,8 +180,8 @@ def callback_inline(call):
           keyboard.add(callback_button, callback_button1, callback_button2)
           sent = bot.edit_message_text(chat_id=cid, message_id=yid[cid], text='Выберите конец интервала', reply_markup=keyboard)
           yid[cid] = sent.message_id
-          interval = 'finish'
-        elif int(call.data) in range(1991,2020) and interval=='finish':
+          years = 'finish'
+        elif int(call.data) in range(1991,2020) and years=='finish':
           if int(call.data)>=year1[cid]:
             year2[cid]=call.data
             sent = bot.edit_message_text(chat_id=cid, message_id=yid[cid], text='Интервал сохранён')
@@ -193,7 +193,7 @@ def callback_inline(call):
             keyboard.add(callback_button, callback_button1, callback_button2)
             sent = bot.edit_message_text(chat_id=cid, message_id=yid[cid], text='Конец интервала должен быть больше начала', reply_markup=keyboard)
             yid[cid] = sent.message_id
-            interval = 'finish'
+            years = 'finish'
           
                
 
