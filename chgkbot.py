@@ -95,7 +95,8 @@ def set_year(m):
     keyboard.add(callback_button, callback_button1, callback_button2)
     sent = bot.send_message(cid, 'Выберите начало интервала', reply_markup=keyboard)
     yid[cid] = sent.message_id
-    global interval = 'start'
+    global interval
+    interval = 'start'
 
 @bot.callback_query_handler(func=lambda call: True)
 def callback_inline(call):
@@ -179,7 +180,7 @@ def callback_inline(call):
           keyboard.add(callback_button, callback_button1, callback_button2)
           sent = bot.edit_message_text(chat_id=cid, message_id=yid[cid], text='Выберите конец интервала', reply_markup=keyboard)
           yid[cid] = sent.message_id
-          global interval = 'finish'
+          interval = 'finish'
         elif interval=='finish' and int(call.data) in range(1991,2020):
           if int(call.data)>=year1[cid]:
             year2[cid]=call.data
@@ -192,7 +193,7 @@ def callback_inline(call):
           keyboard.add(callback_button, callback_button1, callback_button2)
           sent = bot.edit_message_text(chat_id=cid, message_id=yid[cid], text='Конец интервала должен быть больше начала', reply_markup=keyboard)
           yid[cid] = sent.message_id
-          global interval = 'finish'
+          interval = 'finish'
                
 
 @bot.message_handler(commands=['timer'])    
