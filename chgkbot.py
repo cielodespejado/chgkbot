@@ -12,12 +12,14 @@ bot = telebot.TeleBot(config['DEFAULT']['Token'])
 #bot = telebot.TeleBot(config.token)
 
 knownUsers = []
-#userStep = {} 
+
 quest = {}
 answ = {}
 img_q = {}
 img_a = {}
-year = '2007'    
+year1 = '2007' 
+year2 = str(time.gmtime().tm_year)
+
 commands = {  'start': 'Описание бота',
               'help': 'List of commands',
               'question': 'Get random question from db.chgk.info',
@@ -26,16 +28,6 @@ commands = {  'start': 'Описание бота',
 #              'Set author': 'Get question from the author'
               'timer': 'Start 1 minute timer',
            }
-
-#def get_user_step(uid):
-#    if uid in userStep:
-#        return userStep[uid]
-#    else:
-#        knownUsers.append(uid)
-#        userStep[uid] = 0
-#        return 0
-
-
 
 @bot.message_handler(commands=['start'])
 def start(m):
@@ -71,7 +63,7 @@ def get_random(m):
     global img_a
     global qid
     cid = m.chat.id
-    f = browse.get(year)
+    f = browse.get(year1,year2)
     quest[cid] = f[0]
     answ[cid] = f[1]
     img_q[cid] = f[2]
