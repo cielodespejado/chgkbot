@@ -60,11 +60,11 @@ def get_random(m):
     global img_q
     global img_a
     global qid
-    if year1[cid]:
+    if cid in year1:
       y1 = str(year1[cid])
     else:
       y1 = '2007'
-    if year2[cid]:
+    if cid in year2:
       y2 = str(year2[cid])
     else:
       y2 = str(time.gmtime().tm_year)
