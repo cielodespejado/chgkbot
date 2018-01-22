@@ -17,6 +17,7 @@ quest = {}
 answ = {}
 img_q = {}
 img_a = {}
+qid = {}
 year1 = {}
 year2 = {}
 
@@ -81,17 +82,24 @@ def get_random(m):
     if img_q[cid]:
         bot.send_photo(cid, img_q[cid])
     sent = bot.send_message(cid, quest[cid], reply_markup=keyboard)
-    qid = sent.message_id
+    qid[cid] = sent.message_id
     
 @bot.message_handler(commands=['set_year'])    
 def set_year(m):
     cid = m.chat.id
-    sent = bot.send_message(cid, 'Введите начало интервала')
-    year1[cid] = message.text()
-    sent = bot.send_message(cid, 'Введите конец интервала')
-    year2[cid] = message.text()
-         
-    
+    bot.send_message(cid, 'Введите начало интервала', reply_markup=types.forcereply)
+    if (update.message.ReplyToMessage.text.contains(numeric)):
+      year1[cid] = message.text()
+      bot.send_message(cid, 'Введите конец интервала', reply_markup=types.forcereply)
+      if (update.message.ReplyToMessage.text.contains(numeric)):
+        year2[cid] = message.text()
+        bot.send_message(cid, 'Интервал сохранён')
+      else:
+        bot.send_message(cid, 'Введите конец интервала', reply_markup=types.forcereply)
+    else:
+      bot.send_message(cid, 'Введите начало интервала', reply_markup=types.forcereply)
+
+
    
 @bot.callback_query_handler(func=lambda call: True)
 def callback_inline(call):
@@ -120,7 +128,7 @@ def callback_inline(call):
             bot.send_message(cid, answ[cid])
             if img_a[cid]:
                 bot.send_photo(cid, img_a[cid])
-            bot.edit_message_text(chat_id=cid, message_id=qid, text=quest[cid]) 
+            bot.edit_message_text(chat_id=cid, message_id=qid[cid], text=quest[cid]) 
 
 @bot.message_handler(commands=['timer'])    
 def timer(m):
