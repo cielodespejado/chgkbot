@@ -25,9 +25,7 @@ year2 = {}
 commands = {  'start': 'Описание бота',
               'help': 'Список команд',
               'question': 'Случайный вопрос из базы',
-              'set year': 'Установить диапазон лет, из которого нужно брать вопросы'
-#              'Set editor': 'Загрузить вопрос редактора'
-#              'Set author': 'Загрузить вопрос автора'
+              'set_year': 'Установить диапазон лет, из которого нужно брать вопросы'
               'timer': 'Запустить таймер',
            }
 
@@ -87,7 +85,7 @@ def get_random(m):
     sent = bot.send_message(cid, quest[cid], reply_markup=keyboard)
     qid = sent.message_id
     
-@bot.message_handler(commands=['set year'])    
+@bot.message_handler(commands=['set_year'])    
 def set_year(m):
     cid = m.chat.id
     sent = bot.send_message(cid, 'Введите начало интервала')
