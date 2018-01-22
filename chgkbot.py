@@ -21,6 +21,7 @@ qid = {}
 yid = {}
 year1 = {}
 year2 = {}
+global interval
 
 commands = {  'start': 'Описание бота',
               'help': 'Список команд',
@@ -95,7 +96,6 @@ def set_year(m):
     keyboard.add(callback_button, callback_button1, callback_button2)
     sent = bot.send_message(cid, 'Выберите начало интервала', reply_markup=keyboard)
     yid[cid] = sent.message_id
-    global interval
     interval = 'start'
 
 @bot.callback_query_handler(func=lambda call: True)
