@@ -88,10 +88,10 @@ def get_random(m):
 def set_year(m):
     cid = m.chat.id
     bot.send_message(cid, 'Введите начало интервала', reply_markup=types.ForceReply())
-    if (update.message.ReplyToMessage.text.contains(numeric)):
+    if message.text.isdigit():
       year1[cid] = message.text()
       bot.send_message(cid, 'Введите конец интервала', reply_markup=types.ForceReply())
-      if (update.message.ReplyToMessage.text.contains(numeric)):
+      if message.text.isdigit():
         year2[cid] = message.text()
         bot.send_message(cid, 'Интервал сохранён')
       else:
