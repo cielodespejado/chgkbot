@@ -17,16 +17,18 @@ quest = {}
 answ = {}
 img_q = {}
 img_a = {}
-year1 = '2007' 
-year2 = str(time.gmtime().tm_year)
+year1 = {}
+year2 = {}
+#year1 = '2007' 
+#year2 = str(time.gmtime().tm_year)
 
 commands = {  'start': 'Описание бота',
-              'help': 'List of commands',
-              'question': 'Get random question from db.chgk.info',
-#              'Set year': 'Get question from year range'
-#              'Set editor': 'Get question from the editor'
-#              'Set author': 'Get question from the author'
-              'timer': 'Start 1 minute timer',
+              'help': 'Список команд',
+              'question': 'Случайный вопрос из базы',
+              'set year': 'Установить диапазон лет, из которого нужно брать вопросы'
+#              'Set editor': 'Загрузить вопрос редактора'
+#              'Set author': 'Загрузить вопрос автора'
+              'timer': 'Запустить таймер',
            }
 
 @bot.message_handler(commands=['start'])
@@ -62,8 +64,16 @@ def get_random(m):
     global img_q
     global img_a
     global qid
+    if year1[cid]:
+      y1 = str(year1[cid])
+    else:
+      y1 = '2007'
+    if year2[cid]:
+      y2 = str(year2[cid])
+    else:
+      y2 = str(time.gmtime().tm_year)
     cid = m.chat.id
-    f = browse.get(year1,year2)
+    f = browse.get(y1,y2)
     quest[cid] = f[0]
     answ[cid] = f[1]
     img_q[cid] = f[2]
@@ -76,6 +86,16 @@ def get_random(m):
         bot.send_photo(cid, img_q[cid])
     sent = bot.send_message(cid, quest[cid], reply_markup=keyboard)
     qid = sent.message_id
+    
+@bot.message_handler(commands=['set year'])    
+def set_year(m):
+    cid = m.chat.id
+    sent = bot.send_message(cid, 'Введите начало интервала')
+    year1[cid] = message.text()
+    sent = bot.send_message(cid, 'Введите конец интервала')
+    year2[cid] = message.text()
+         
+    
    
 @bot.callback_query_handler(func=lambda call: True)
 def callback_inline(call):
