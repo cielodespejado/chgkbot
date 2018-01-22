@@ -60,6 +60,7 @@ def get_random(m):
     global img_q
     global img_a
     global qid
+    cid = m.chat.id
     if cid in year1:
       y1 = str(year1[cid])
     else:
@@ -68,7 +69,6 @@ def get_random(m):
       y2 = str(year2[cid])
     else:
       y2 = str(time.gmtime().tm_year)
-    cid = m.chat.id
     f = browse.get(y1,y2)
     quest[cid] = f[0]
     answ[cid] = f[1]
