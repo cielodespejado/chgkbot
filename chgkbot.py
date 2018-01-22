@@ -21,7 +21,8 @@ qid = {}
 yid = {}
 year1 = {}
 year2 = {}
-global years = '0'
+global years
+years = ''
 
 commands = {  'start': 'Описание бота',
               'help': 'Список команд',
