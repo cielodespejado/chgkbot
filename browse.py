@@ -57,6 +57,7 @@ def get(year1, year2):
         quest.append(words[i])
     quest.append('\n')
 
+    answ.append('\n ')
     for i in range(0,len(coords)-1):
         for j in range(coords[i],coords[i+1]):
             answ.append(words[j])
@@ -64,7 +65,7 @@ def get(year1, year2):
 
     for i in range(0,a-1):
         answ.append(words[i])
-    answ.append('\nВыбранный диапазон лет: '+year1+'...'+year2+'\n')
+    answ.append('\n Выбранный диапазон лет: '+year1+'...'+year2+'\n')
         
     quest = (' '.join(quest))
     answ = (' '.join(answ))
