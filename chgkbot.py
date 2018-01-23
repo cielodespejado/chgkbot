@@ -226,9 +226,9 @@ def timer(m):
             bot.edit_message_text(chat_id=cid, message_id=mid, text='Время истекло')    
 
 if __name__ == '__main__':
-  with open('uids.txt', 'r', encoding='utf_8') as u:
-    for line in u.readlines():
-      if line not in knownUsers:
-        knownUsers.append(line)
-  bot.polling(none_stop=True) 
+    with open('uids.txt', 'r', encoding='utf_8') as u:
+        for line in u.readlines():
+            if line not in knownUsers:
+                knownUsers.append(line)
+    bot.polling(none_stop=True) 
 
