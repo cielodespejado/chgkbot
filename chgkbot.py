@@ -177,14 +177,14 @@ def callback_inline(call):
           button = []  
           keyboard = types.InlineKeyboardMarkup()
           if 1990<int(call.data)<2001:
-              button[0] = types.InlineKeyboardButton(text=year1[cid]+'-2000', callback_data='int1')
-              button[1] = types.InlineKeyboardButton(text='2001-2010', callback_data='int2')
-              button[2] = types.InlineKeyboardButton(text='2011-н.в.', callback_data='int3')
+              button.append(types.InlineKeyboardButton(text=year1[cid]+'-2000', callback_data='int1'))
+              button.append(types.InlineKeyboardButton(text='2001-2010', callback_data='int2'))
+              button.append(types.InlineKeyboardButton(text='2011-н.в.', callback_data='int3'))
           elif 2000<int(call.data)<2011:
-              button[0] = types.InlineKeyboardButton(text=year1[cid]+'-2010', callback_data='int2')
-              button[1] = types.InlineKeyboardButton(text='2011-2020', callback_data='int3')
+              button.append(types.InlineKeyboardButton(text=year1[cid]+'-2010', callback_data='int2'))
+              button.append(types.InlineKeyboardButton(text='2011-2020', callback_data='int3'))
           elif 2010<int(call.data)<2021:
-              button[0] = types.InlineKeyboardButton(text=year1[cid]+'-2020', callback_data='int3')
+              button.append(types.InlineKeyboardButton(text=year1[cid]+'-2020', callback_data='int3'))
           keyboard.add(*button)
           sent = bot.edit_message_text(chat_id=cid, message_id=yid[cid], text='Выберите конец интервала', reply_markup=keyboard)
           end_int = True
