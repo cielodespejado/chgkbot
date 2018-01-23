@@ -140,49 +140,54 @@ def callback_inline(call):
           bot.send_photo(cid, img_a[cid])
         bot.edit_message_text(chat_id=cid, message_id=qid[cid], text=quest[cid])
       elif call.data == "int1":
-        keyboard = types.InlineKeyboardMarkup()
-        button = []
-        for text in range(1991,2001):
-            button.append(types.InlineKeyboardButton(text=str(text), callback_data=str(text)))
-        keyboard.add(*button)
-        if start_int==True:
-            txt = 'Выберите начало интервала'
-        else:
-            txt = 'Выберите конец интервала'
-        sent = bot.edit_message_text(chat_id=cid, message_id=yid[cid], text=txt, reply_markup=keyboard)
+          keyboard = types.InlineKeyboardMarkup()
+          button = []
+          for text in range(1991,2001):
+              button.append(types.InlineKeyboardButton(text=str(text), callback_data=str(text)))
+          keyboard.add(*button)
+          if start_int==True:
+              txt = 'Выберите начало интервала'
+          else:
+              txt = 'Выберите конец интервала'
+          sent = bot.edit_message_text(chat_id=cid, message_id=yid[cid], text=txt, reply_markup=keyboard)
       elif call.data == "int2":
-        keyboard = types.InlineKeyboardMarkup()
-        button = []
-        for text in range(2001,2011):
-            button.append(types.InlineKeyboardButton(text=str(text), callback_data=str(text)))
-        keyboard.add(*button)
-        if start_int==True:
-            txt = 'Выберите начало интервала'
-        else:
-            txt = 'Выберите конец интервала'
-        sent = bot.edit_message_text(chat_id=cid, message_id=yid[cid], text=txt, reply_markup=keyboard)
+          keyboard = types.InlineKeyboardMarkup()
+          button = []
+          for text in range(2001,2011):
+              button.append(types.InlineKeyboardButton(text=str(text), callback_data=str(text)))
+          keyboard.add(*button)
+          if start_int==True:
+              txt = 'Выберите начало интервала'
+          else:
+              txt = 'Выберите конец интервала'
+          sent = bot.edit_message_text(chat_id=cid, message_id=yid[cid], text=txt, reply_markup=keyboard)
       elif call.data == "int3":
-        keyboard = types.InlineKeyboardMarkup()
-        button = []
-        for text in range(2011,2021):
-            button.append(types.InlineKeyboardButton(text=str(text), callback_data=str(text)))
-        keyboard.add(*button)
-        if start_int==True:
-            txt = 'Выберите начало интервала'
-        else:
-            txt = 'Выберите конец интервала'
-        sent = bot.edit_message_text(chat_id=cid, message_id=yid[cid], text=txt, reply_markup=keyboard)
+          keyboard = types.InlineKeyboardMarkup()
+          button = []
+          for text in range(2011,2021):
+              button.append(types.InlineKeyboardButton(text=str(text), callback_data=str(text)))
+          keyboard.add(*button)
+          if start_int==True:
+              txt = 'Выберите начало интервала'
+          else:
+              txt = 'Выберите конец интервала'
+          sent = bot.edit_message_text(chat_id=cid, message_id=yid[cid], text=txt, reply_markup=keyboard)
       elif int(call.data) in range(1991,2020) and start_int==True:
-        year1[cid]=call.data
-        keyboard = types.InlineKeyboardMarkup()
-        callback_button = types.InlineKeyboardButton(text='1991-2000', callback_data='int1')
-        callback_button1 = types.InlineKeyboardButton(text='2001-2010', callback_data='int2')
-        callback_button2 = types.InlineKeyboardButton(text='2011-н.в.', callback_data='int3')
-        keyboard.add(callback_button, callback_button1, callback_button2)
-        sent = bot.edit_message_text(chat_id=cid, message_id=yid[cid], text='Выберите конец интервала', reply_markup=keyboard)
-        yid[cid] = sent.message_id
-        end_int = True
-        start_int = False
+          year1[cid]=call.data
+          keyboard = types.InlineKeyboardMarkup()
+          if 1990<int(call.data)<2001:
+              button[0] = types.InlineKeyboardButton(text=year1[cid]+'-2000', callback_data='int1')
+              button[1] = types.InlineKeyboardButton(text='2001-2010', callback_data='int2')
+              button[2] = types.InlineKeyboardButton(text='2011-н.в.', callback_data='int3')
+          elif 2000<int(call.data)<2011:
+              button[0] = types.InlineKeyboardButton(text=year1[cid]+'-2010', callback_data='int2')
+              button[1] = types.InlineKeyboardButton(text='2011-2020', callback_data='int3')
+          elif 2010<int(call.data)<2021:
+              button[0] = types.InlineKeyboardButton(text=year1[cid]+'-2020', callback_data='int3')
+          keyboard.add(*button)
+          sent = bot.edit_message_text(chat_id=cid, message_id=yid[cid], text='Выберите конец интервала', reply_markup=keyboard)
+          end_int = True
+          start_int = False
       elif int(call.data) in range(1991,2020) and end_int==True:
         if int(call.data)>=int(year1[cid]):
           year2[cid]=call.data
@@ -195,7 +200,6 @@ def callback_inline(call):
           callback_button2 = types.InlineKeyboardButton(text='2011-н.в.', callback_data='int3')
           keyboard.add(callback_button, callback_button1, callback_button2)
           sent = bot.edit_message_text(chat_id=cid, message_id=yid[cid], text='Конец интервала должен быть больше начала', reply_markup=keyboard)
-          yid[cid] = sent.message_id
           end_int = True
           
      
