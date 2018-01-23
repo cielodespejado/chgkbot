@@ -105,7 +105,8 @@ def set_year(m):
     end_int = False
 
 @bot.message_handler(commands=['rst_year'])    
-def set_year(m):
+def rst_year(m):
+    cid = m.chat.id
     year1[cid]='2007'
     year2[cid]=str(time.gmtime().tm_year)   
     
