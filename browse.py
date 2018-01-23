@@ -26,8 +26,8 @@ def get(year1, year2):
         if img_a:
             img_a = img_a[0].get('src')
 
-    quest = [' \n']
-    answ = [' \n']
+    quest = ['\t']
+    answ = ['\t']
             
     words = q.split()
 
