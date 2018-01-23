@@ -20,6 +20,8 @@ qid = {}
 yid = {}
 year1 = {}
 year2 = {}
+end_int = False
+start_int = False
 global act_year
 act_year = time.gmtime().tm_year 
 
