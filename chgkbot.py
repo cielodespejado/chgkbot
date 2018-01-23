@@ -136,7 +136,7 @@ def callback_inline(call):
         elif call.data == 'answer':
             if timer:
                 timer = False
-            bot.send_message(cid, ' '+answ[cid])
+            bot.send_message(cid, answ[cid])
             if img_a[cid]:
                 bot.send_photo(cid, img_a[cid])
             bot.edit_message_text(chat_id=cid, message_id=qid[cid], text=quest[cid])
