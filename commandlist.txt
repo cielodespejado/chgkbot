@@ -1,3 +1,6 @@
-get_random - Get Random Question
-start - Информация о боте
-help - Информация о боте
+question - Get random question
+start - Bot description
+help - List of commands
+set_year - Set year range
+rst_year - Reset year range to 2007-actual
+timer - Launch timer
