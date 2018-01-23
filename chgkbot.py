@@ -143,7 +143,7 @@ def callback_inline(call):
         keyboard = types.InlineKeyboardMarkup()
         button = []
         for text in range(1991,2001):
-            button.append(types.InlineKeyboardButton(text))
+            button.append(types.InlineKeyboardButton(str(text)))
         keyboard.add(*button)
         sent = bot.edit_message_text(chat_id=cid, message_id=yid[cid], text='Выберите начало интервала', reply_markup=keyboard)
         yid[cid] = sent.message_id
