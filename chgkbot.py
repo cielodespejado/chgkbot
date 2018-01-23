@@ -166,7 +166,6 @@ def callback_inline(call):
             keyboard.add(*button)    
             sent = bot.edit_message_text(chat_id=cid, message_id=yid[cid], text=txt, reply_markup=keyboard)
         elif call.data == 'int3':
-            act_year = str(time.gmtime().tm_year) 
             keyboard = types.InlineKeyboardMarkup()
             button = []
             if start_int==True:
