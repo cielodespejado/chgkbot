@@ -52,12 +52,11 @@ def get(year1, year2):
     if razdatka:
         quest.append(r)
         quest.append('\n')
-
+        
     for i in range(a+1,b-1):
         quest.append(words[i])
     quest.append('\n')
 
-    answ.append('\n ')
     for i in range(0,len(coords)-1):
         for j in range(coords[i],coords[i+1]):
             answ.append(words[j])
