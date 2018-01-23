@@ -29,6 +29,7 @@ commands = {  'start': 'Описание бота',
               'help': 'Список команд',
               'question': 'Случайный вопрос из базы',
               'set_year': 'Установить диапазон лет, из которого нужно брать вопросы',
+              'rst_year': 'Сбросить диапазон лет до 2007-н.в.',
               'timer': 'Запустить таймер'
            }
 
@@ -103,6 +104,11 @@ def set_year(m):
     global end_int
     end_int = False
 
+@bot.message_handler(commands=['rst_year'])    
+def set_year(m):
+    year1[cid]='2007'
+    year2[cid]=str(time.gmtime().tm_year)   
+    
 @bot.callback_query_handler(func=lambda call: True)
 def callback_inline(call):
     cid = call.message.chat.id
