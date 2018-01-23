@@ -86,7 +86,7 @@ def get_random(m):
     keyboard.add(callback_button, callback_button1)
     if img_q[cid]:
           bot.send_photo(cid, img_q[cid])
-    sent = bot.send_message(cid, quest[cid], reply_markup=keyboard)
+    sent = bot.send_message(cid, '\t'+quest[cid], reply_markup=keyboard)
     qid[cid] = sent.message_id
     
 @bot.message_handler(commands=['set_year'])    
