@@ -139,7 +139,7 @@ def callback_inline(call):
     global end_int
     global start_int
     if call.message:
-      elif call.data == "int1":
+      if call.data == "int1":
         keyboard = types.InlineKeyboardMarkup()
         callback_button = types.InlineKeyboardButton(text='1991', callback_data='1991')
         callback_button1 = types.InlineKeyboardButton(text='1992', callback_data='1992')
