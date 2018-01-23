@@ -186,7 +186,7 @@ def callback_inline(call):
           yid[cid] = sent.message_id
           global end_int
           end_int = True
-        elif int(call.data) in range(1991,2020) and end_int = True:
+        elif int(call.data) in range(1991,2020) and end_int==True:
           if int(call.data)>=year1[cid]:
             year2[cid]=call.data
             sent = bot.edit_message_text(chat_id=cid, message_id=yid[cid], text='Интервал сохранён')
