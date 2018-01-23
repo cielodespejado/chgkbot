@@ -20,10 +20,7 @@ qid = {}
 yid = {}
 year1 = {}
 year2 = {}
-#global start_int
-start_int = False
-#global end_int
-end_int = False
+
 
 commands = {  'start': 'Описание бота',
               'help': 'Список команд',
@@ -214,7 +211,7 @@ def callback_inline(call):
 @bot.message_handler(commands=['timer'])    
 def timer(m):
     cid = m.chat.id
-    sent = bot.send_message(cid, "01:00")
+    sent = bot.send_message(cid, '01:00')
     mid = sent.message_id
     interval = 60
     time.sleep(1)
@@ -225,7 +222,7 @@ def timer(m):
         time.sleep(1)
         bot.edit_message_text(chat_id=cid, message_id=mid, text=t)
         if interval == 0:
-            bot.edit_message_text(chat_id=cid, message_id=mid, text="Время истекло")    
+            bot.edit_message_text(chat_id=cid, message_id=mid, text='Время истекло')    
 
 if __name__ == '__main__':
   with open('uids.txt', 'r', encoding='utf_8') as u:
