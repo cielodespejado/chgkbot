@@ -86,7 +86,7 @@ def get_random(m):
     keyboard.add(callback_button, callback_button1)
     if img_q[cid]:
           bot.send_photo(cid, img_q[cid])
-    sent = bot.send_message(cid, quest[cid], reply_markup=keyboard)
+    sent = bot.send_message(cid, ' '+quest[cid], reply_markup=keyboard)
     qid[cid] = sent.message_id
     
 @bot.message_handler(commands=['set_year'])    
@@ -136,7 +136,7 @@ def callback_inline(call):
         elif call.data == 'answer':
             if timer:
                 timer = False
-            bot.send_message(cid, answ[cid])
+            bot.send_message(cid, ' '+answ[cid])
             if img_a[cid]:
                 bot.send_photo(cid, img_a[cid])
             bot.edit_message_text(chat_id=cid, message_id=qid[cid], text=quest[cid])
