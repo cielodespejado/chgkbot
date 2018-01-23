@@ -174,6 +174,7 @@ def callback_inline(call):
           sent = bot.edit_message_text(chat_id=cid, message_id=yid[cid], text=txt, reply_markup=keyboard)
       elif int(call.data) in range(1991,2020) and start_int==True:
           year1[cid]=call.data
+          button = []  
           keyboard = types.InlineKeyboardMarkup()
           if 1990<int(call.data)<2001:
               button[0] = types.InlineKeyboardButton(text=year1[cid]+'-2000', callback_data='int1')
