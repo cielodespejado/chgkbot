@@ -64,10 +64,10 @@ def get(year1, year2):
 
     for i in range(0,a-1):
         answ.append(words[i])
-    answ.append('\n Выбранный диапазон лет: '+year1+'...'+year2+'\n')
+    answ.append('\nВыбранный диапазон лет: '+year1+'...'+year2+'\n')
 
-    quest = '\t'+(' '.join(quest))
-    answ = ('\t'.join(answ))
+    quest = (' '.join(quest)).replace(" \n ", "\n")
+    answ = (' '.join(answ)).replace(" \n ", "\n")
 
     return (quest, answ, img_q, img_a)
 #print (quest,'\n',answ,'\n',img_q,'\n',img_a)
