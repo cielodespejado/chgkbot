@@ -106,40 +106,34 @@ def set_year(m):
 @bot.callback_query_handler(func=lambda call: True)
 def callback_inline(call):
     cid = call.message.chat.id
-    if call.message:
-        if call.data == "timer":
-            sent = bot.send_message(cid, "01:00")
-            mid = sent.message_id
-            global timer
-            timer = True
-            interval = 60
-            time.sleep(1)
-            while interval and timer:
-                interval -= 1
-                mins, secs = divmod(interval, 60)
-                t = '{:01d}:{:02d}'.format(mins, secs)
-                bot.edit_message_text(chat_id=cid, message_id=mid, text=t)
-                time.sleep(1)
-                if interval == 0:
-                    bot.edit_message_text(chat_id=cid, message_id=mid, text="Время истекло")
-            time.sleep(5)
-            bot.delete_message(cid, mid)
-        elif call.data == "answer":
-            if timer:
-                timer = False
-            bot.send_message(cid, answ[cid])
-            if img_a[cid]:
-                bot.send_photo(cid, img_a[cid])
-            bot.edit_message_text(chat_id=cid, message_id=qid[cid], text=quest[cid])
-            
-            
-@bot.callback_query_handler(func=lambda call: True)
-def callback_inline(call):
-    cid = call.message.chat.id
     global end_int
     global start_int
     if call.message:
-      if call.data == "int1":
+      if call.data == "timer":
+        sent = bot.send_message(cid, "01:00")
+        mid = sent.message_id
+        global timer
+        timer = True
+        interval = 60
+        time.sleep(1)
+        while interval and timer:
+          interval -= 1
+          mins, secs = divmod(interval, 60)
+          t = '{:01d}:{:02d}'.format(mins, secs)
+          bot.edit_message_text(chat_id=cid, message_id=mid, text=t)
+          time.sleep(1)
+          if interval == 0:
+            bot.edit_message_text(chat_id=cid, message_id=mid, text="Время истекло")
+          time.sleep(5)
+          bot.delete_message(cid, mid)
+      elif call.data == "answer":
+        if timer:
+          timer = False
+        bot.send_message(cid, answ[cid])
+        if img_a[cid]:
+          bot.send_photo(cid, img_a[cid])
+        bot.edit_message_text(chat_id=cid, message_id=qid[cid], text=quest[cid])
+      elif call.data == "int1":
         keyboard = types.InlineKeyboardMarkup()
         callback_button = types.InlineKeyboardButton(text='1991', callback_data='1991')
         callback_button1 = types.InlineKeyboardButton(text='1992', callback_data='1992')
