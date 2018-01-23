@@ -192,9 +192,7 @@ def callback_inline(call):
       keyboard.add(callback_button, callback_button1, callback_button2)
       sent = bot.edit_message_text(chat_id=cid, message_id=yid[cid], text='Выберите конец интервала', reply_markup=keyboard)
       yid[cid] = sent.message_id
-      global end_int
       end_int = True
-      global start_int
       start_int = False
     elif int(call.data) in range(1991,2020) and end_int==True:
       if int(call.data)>=year1[cid]:
@@ -208,9 +206,7 @@ def callback_inline(call):
         keyboard.add(callback_button, callback_button1, callback_button2)
         sent = bot.edit_message_text(chat_id=cid, message_id=yid[cid], text='Конец интервала должен быть больше начала', reply_markup=keyboard)
         yid[cid] = sent.message_id
-        global end_int
         end_int = True
-        global start_int
         start_int = False
       
       
