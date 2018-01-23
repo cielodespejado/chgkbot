@@ -56,7 +56,7 @@ def get(year1, year2):
     for i in range(a+1,b-1):
         quest.append(words[i])
     quest.append('\n')
-
+    
     for i in range(0,len(coords)-1):
         for j in range(coords[i],coords[i+1]):
             answ.append(words[j])
@@ -66,8 +66,8 @@ def get(year1, year2):
         answ.append(words[i])
     answ.append('\n Выбранный диапазон лет: '+year1+'...'+year2+'\n')
         
-    quest = (' '.join(quest))
-    answ = (' '.join(answ))
+    quest = (''.join(quest))
+    answ = (''.join(answ))
 
     return (quest, answ, img_q, img_a)
 #print (quest,'\n',answ,'\n',img_q,'\n',img_a)
