@@ -183,15 +183,24 @@ def callback_inline(call):
             year1[cid]=call.data
             button = []  
             keyboard = types.InlineKeyboardMarkup()
-            if 1990<int(call.data)<2001:
+            if 1990<int(call.data)<2000:
                 button.append(types.InlineKeyboardButton(text=year1[cid]+'-2000', callback_data='int1'))
                 button.append(types.InlineKeyboardButton(text='2001-2010', callback_data='int2'))
                 button.append(types.InlineKeyboardButton(text='2011-'+str(act_year-1), callback_data='int3'))
                 button.append(types.InlineKeyboardButton(text=str(act_year), callback_data=str(act_year)))
-            elif 2000<int(call.data)<2011:
+            elif int(call.data)==2000:
+                button.append(types.InlineKeyboardButton(text='2000', callback_data='2000'))
+                button.append(types.InlineKeyboardButton(text='2001-2010', callback_data='int2'))
+                button.append(types.InlineKeyboardButton(text='2011-'+str(act_year-1), callback_data='int3'))
+                button.append(types.InlineKeyboardButton(text=str(act_year), callback_data=str(act_year)))
+            elif 2000<int(call.data)<2010:
                 button.append(types.InlineKeyboardButton(text=year1[cid]+'-2010', callback_data='int2'))
                 button.append(types.InlineKeyboardButton(text='2011-'+str(act_year-1), callback_data='int3'))
                 button.append(types.InlineKeyboardButton(text=str(act_year), callback_data=str(act_year)))
+            elif int(call.data)==2010:
+                button.append(types.InlineKeyboardButton(text='2010', callback_data='2010'))
+                button.append(types.InlineKeyboardButton(text='2011-'+str(act_year-1), callback_data='int3'))
+                button.append(types.InlineKeyboardButton(text=str(act_year), callback_data=str(act_year)))    
             elif 2010<int(call.data)<act_year-1:
                 button.append(types.InlineKeyboardButton(text=year1[cid]+'-'+str(act_year-1), callback_data='int3'))
                 button.append(types.InlineKeyboardButton(text=str(act_year), callback_data=str(act_year)))
@@ -232,3 +241,7 @@ if __name__ == '__main__':
                 knownUsers.append(line)
     bot.polling(none_stop=True) 
 
+
+
+# 131041034 надин
+# 55030446 мой
