@@ -18,9 +18,9 @@ def get(year1, year2):
             razdatka = question[0].find('div','razdatka').extract()
             r = razdatka.get_text()
         img_q = question[0].find_all('img')
-        img_a = answer.find_all('img')
+        img_a = answer.find_all('img', limit = 1)
         if img_q:
-            if len(img_q)==len(img_a):
+            if len(img_a)==len(img_a):
                 img_q = []
             elif len(img_q)>len(img_a):
                 img_q[:len(img_q)-len(img_a)]
@@ -72,9 +72,8 @@ def get(year1, year2):
 def get_author(author, year1, year2):
     quest = ['']
     answ = ['']
-    image_q = []
-    image_a = []
-    url = 'https://db.chgk.info/search/questions/author_'+author+'/types1/sort_date/from_'+year1+'-01-01/to_'+year2+'-12-31/limit10000'
+    url = 'https://db.chgk.info/search/questions/author_yuvashkulat/types1/from_2009-03-21/to_2009-03-21/limit10000'
+    ##url = 'https://db.chgk.info/search/questions/author_'+author+'/types1/sort_date/from_'+year1+'-01-01/to_'+year2+'-12-31/limit10000'
     with urllib.request.urlopen(url) as fp:
         soup = BeautifulSoup(fp, 'html.parser')
         allquests = soup.find_all('div','question')
@@ -87,14 +86,12 @@ def get_author(author, year1, year2):
             r = razdatka.get_text()
         question = allquests[N].get_text()    
         soup1 = BeautifulSoup(str(allquests[N]), 'html.parser')
-        img_q = soup1.find('strong','Answer').find_all_previous('img')
-        img_a = soup1.find('strong','Answer').find_all_next('img')
+        img_q = soup1.find('strong','Answer').find_previous('img')
+        img_a = soup1.find('strong','Answer').find_next('img')
         if img_q:
-            for i in range(0,len(img_q)):
-                image_q.append(img_q[i].get('src'))
+            img_q = img_q.get('src')
         if img_a:
-            for i in range(0,len(img_q)):
-                image_a.append(img_a[i].get('src'))    
+            img_a = img_a.get('src')    
 
     words = question.split()
     a = b = c = d = e = f = 0
@@ -132,7 +129,7 @@ def get_author(author, year1, year2):
     answ.append('\nВыбранный диапазон лет: '+year1+'...'+year2+'\n')
     quest = (' '.join(quest)).replace(" \n ", "\n")
     answ = (' '.join(answ)).replace(" \n ", "\n")
-    return (quest, answ, image_q, image_a)
+    return (quest, answ, img_q, img_a)
 
 #print (quest,'\n',answ,'\n',img_q,'\n',img_a)
 
