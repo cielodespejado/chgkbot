@@ -20,6 +20,9 @@ qid = {}
 yid = {}
 year1 = {}
 year2 = {}
+authors = {}
+authors_keys = []
+alphabet = []
 end_int = False
 start_int = False
 set_author = False
@@ -107,10 +110,8 @@ def set_year(m):
     end_int = False
     
 @bot.message_handler(commands=['set_author'])    
-def set_year(m):
+def set_author(m):
     cid = m.chat.id
-    authors = {}
-    alphabet = []
     button = []
     with open(file, 'r') as u:
         spisok = u.readlines()
@@ -238,7 +239,6 @@ def callback_inline(call):
             sent = bot.edit_message_text(chat_id=cid, message_id=yid[cid], text='Интервал сохранён')
             end_int = False
         elif ord(call.data) in range(ord('А'), ord('Я')) and set_author==True:
-            authors = {}
             with open(file, 'r') as u:
                 spisok = u.readlines()
                 for i in spisok:
