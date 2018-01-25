@@ -72,7 +72,8 @@ def get(year1, year2):
 def get_author(author, year1, year2):
     quest = ['']
     answ = ['']
-    url = 'https://db.chgk.info/search/questions/author_'+author+'/types1/sort_date/from_'+year1+'-01-01/to_'+year2+'-12-31/limit10000'
+    url = 'https://db.chgk.info/search/questions/author_yuvashkulat/types1/from_2009-03-21/to_2009-03-21/limit10000'
+    #url = 'https://db.chgk.info/search/questions/author_'+author+'/types1/sort_date/from_'+year1+'-01-01/to_'+year2+'-12-31/limit10000'
     with urllib.request.urlopen(url) as fp:
         soup = BeautifulSoup(fp, 'html.parser')
         allquests = soup.find_all('div','question')
@@ -108,7 +109,7 @@ def get_author(author, year1, year2):
         elif word == 'Вопрос':
             a = i
 
-    coords = [b,c,d,e,f,len(words)]
+    coords = [b,c,d,e,f,len(words)-1]
     coords = [i for i in coords if i!=0]
 
     if razdatka:
@@ -125,7 +126,7 @@ def get_author(author, year1, year2):
         answ.append('\n')
 
     answ.append(tournament)
-    answ.append('\nВыбранный диапазон лет: '+year1+'...'+year2+'\n')
+    answ.append('Выбранный диапазон лет: '+year1+'...'+year2+'\n')
     quest = (' '.join(quest)).replace(" \n ", "\n")
     answ = (' '.join(answ)).replace(" \n ", "\n")
     return (quest, answ, img_q, img_a)
