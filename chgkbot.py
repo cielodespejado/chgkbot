@@ -22,6 +22,7 @@ yid = {}
 aid = {}
 year1 = {}
 year2 = {}
+author = {}
 authors = {}
 authors_keys = []
 alphabet = []
@@ -35,8 +36,9 @@ commands = {  'start': 'Описание бота',
               'help': 'Список команд',
               'question': 'Случайный вопрос из базы',
               'set_year': 'Установить диапазон лет, из которого нужно брать вопросы',
-              'set_author': 'Выбрать автора вопросов',
               'rst_year': 'Сбросить диапазон лет до 2007-н.в.',
+              'set_author': 'Выбрать автора вопросов',
+              'rst_author': 'Отменить выбранного автора',
               'timer': 'Запустить таймер'
            }
 
@@ -82,11 +84,19 @@ def get_random(m):
         y2 = str(year2[cid])
     else:
         y2 = str(time.gmtime().tm_year)
-    f = browse.get(y1,y2)
-    quest[cid] = f[0]
-    answ[cid] = f[1]
-    img_q[cid] = f[2]
-    img_a[cid] = f[3]
+    if cid in author:
+        a = author[cid]
+        f = browse.get_author(a,y1,y2)
+        quest[cid] = f[0]
+        answ[cid] = f[1]
+        img_q[cid] = f[2]
+        img_a[cid] = f[3]
+    else:
+        f = browse.get(y1,y2)
+        quest[cid] = f[0]
+        answ[cid] = f[1]
+        img_q[cid] = f[2]
+        img_a[cid] = f[3]
     keyboard = types.InlineKeyboardMarkup()
     callback_button = types.InlineKeyboardButton(text='Показать ответ', callback_data='answer')
     callback_button1 = types.InlineKeyboardButton(text='Запустить таймер', callback_data='timer')
@@ -120,12 +130,13 @@ def set_author(m):
         for i in spisok:
             i.split()
             if i[0] not in alphabet and i[0] != '!':
+                global alphabet
                 alphabet.append(i[0])
     keyboard = types.InlineKeyboardMarkup()
     for letter in alphabet:
         button.append(types.InlineKeyboardButton(text=letter, callback_data=letter))
     keyboard.add(*button)
-    sent = bot.send_message(cid, 'Выберите автора', reply_markup=keyboard)
+    sent = bot.send_message(cid, 'Выберите автора:', reply_markup=keyboard)
     aid[cid] = sent.message_id
     global set_author
     set_author = True
@@ -135,6 +146,11 @@ def rst_year(m):
     cid = m.chat.id
     year1[cid]='2007'
     year2[cid]=str(time.gmtime().tm_year)   
+    
+@bot.message_handler(commands=['rst_author'])    
+def rst_author(m):
+    cid = m.chat.id
+    author.pop(cid, None)
     
 @bot.callback_query_handler(func=lambda call: True)
 def callback_inline(call):
@@ -241,7 +257,7 @@ def callback_inline(call):
             year2[cid]=call.data
             sent = bot.edit_message_text(chat_id=cid, message_id=yid[cid], text='Интервал сохранён')
             end_int = False
-        elif set_author==True and ord(call.data) in range(ord('А'), ord('Я')):
+        elif set_author==True and call.data in alphabet:
             with open('Authors.txt', 'r') as u:
                 spisok = u.readlines()
                 for i in spisok:
@@ -254,10 +270,16 @@ def callback_inline(call):
                 authors_keys = list(authors.keys())
             keyboard = types.InlineKeyboardMarkup()
             button = []
-            for author in authors_keys:
-                button.append(types.InlineKeyboardButton(text=author, callback_data=author))
+            for a in authors_keys:
+                button.append(types.InlineKeyboardButton(text=a, callback_data=author))
             keyboard.add(*button)
-            sent = bot.edit_message_text(chat_id=cid, message_id=aid[cid], text=txt, reply_markup=keyboard)    
+            sent = bot.edit_message_text(chat_id=cid, message_id=aid[cid], text='Выберите автора:', reply_markup=keyboard)  
+        elif set_author==True and call.data in authors:
+            global author
+            author[cid] = authors[call.data]
+            sent = bot.edit_message_text(chat_id=cid, message_id=aid[cid], text='Автор выбран')
+            global set_author
+            set_author = False
             
 @bot.message_handler(commands=['timer'])    
 def timer(m):
