@@ -173,9 +173,10 @@ def callback_inline(call):
             sent = bot.send_message(cid, '01:00')
             mid = sent.message_id
             global timer
+            timer = True
             interval = 60
             time.sleep(1)
-            while interval:
+            while interval and timer:
                 interval -= 1
                 mins, secs = divmod(interval, 60)
                 t = '{:01d}:{:02d}'.format(mins, secs)
@@ -183,8 +184,8 @@ def callback_inline(call):
                 time.sleep(1)
                 if interval == 0:
                     bot.edit_message_text(chat_id=cid, message_id=mid, text='Время истекло')
-                time.sleep(5)
-                bot.delete_message(cid, mid)
+            time.sleep(5)
+            bot.delete_message(cid, mid)
         elif call.data == 'answer':
             if timer:
                 timer = False
@@ -303,7 +304,9 @@ def timer(m):
         time.sleep(1)
         bot.edit_message_text(chat_id=cid, message_id=mid, text=t)
         if interval == 0:
-            bot.edit_message_text(chat_id=cid, message_id=mid, text='Время истекло')    
+            bot.edit_message_text(chat_id=cid, message_id=mid, text='Время истекло')
+        time.sleep(5)
+        bot.delete_message(cid, mid)    
 
 if __name__ == '__main__':
     with open('uids.txt', 'r', encoding='utf_8') as u:
