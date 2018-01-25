@@ -269,9 +269,9 @@ def callback_inline(call):
                     i.split()
                     if i[0] == call.data:
                         k = i.split()
-                        authors[k[0]+' '+k[1]]=k[2]
+                        authors[k[0]+' '+k[1]] = k[2]
                 authors_keys = list(authors.keys())
-            keyboard = types.InlineKeyboardMarkup()
+            keyboard = types.InlineKeyboardMarkup(row_width = 2)
             button = []
             for a in authors_keys:
                 button.append(types.InlineKeyboardButton(text=a, callback_data=a))
