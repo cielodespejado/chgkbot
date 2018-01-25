@@ -22,6 +22,7 @@ year1 = {}
 year2 = {}
 end_int = False
 start_int = False
+set_author = False
 global act_year
 act_year = time.gmtime().tm_year 
 
@@ -29,6 +30,7 @@ commands = {  'start': 'Описание бота',
               'help': 'Список команд',
               'question': 'Случайный вопрос из базы',
               'set_year': 'Установить диапазон лет, из которого нужно брать вопросы',
+              'set_author': 'Выбрать автора вопросов',
               'rst_year': 'Сбросить диапазон лет до 2007-н.в.',
               'timer': 'Запустить таймер'
            }
@@ -103,7 +105,27 @@ def set_year(m):
     start_int = True
     global end_int
     end_int = False
-
+    
+@bot.message_handler(commands=['set_author'])    
+def set_year(m):
+    cid = m.chat.id
+    authors = {}
+    alphabet = []
+    button = []
+    with open(file, 'r') as u:
+        spisok = u.readlines()
+        for i in spisok:
+            i.split()
+            if i[0] not in alphabet and i[0] != '#':
+                alphabet.append(i[0])
+    keyboard = types.InlineKeyboardMarkup()
+    for letter in alphabet:
+        button.append(types.InlineKeyboardButton(text=letter, callback_data=letter))
+    keyboard.add(*button)
+    sent = bot.send_message(cid, 'Выберите автора', reply_markup=keyboard)
+    aid[cid] = sent.message_id  
+    set_author = True
+    
 @bot.message_handler(commands=['rst_year'])    
 def rst_year(m):
     cid = m.chat.id
@@ -215,6 +237,26 @@ def callback_inline(call):
             year2[cid]=call.data
             sent = bot.edit_message_text(chat_id=cid, message_id=yid[cid], text='Интервал сохранён')
             end_int = False
+        elif ord(call.data) in range(ord('А'), ord('Я')) and set_author==True:
+            authors = {}
+            with open(file, 'r') as u:
+                spisok = u.readlines()
+                for i in spisok:
+                    i.split()
+                    if i[0] == first_letter:
+                        k = i.split()
+                        global authors
+                        authors[k[0]+' '+k[1]]=k[2]
+                global authors_keys
+                authors_keys = list(authors.keys())
+            keyboard = types.InlineKeyboardMarkup()
+            button = []
+            for author in authors_keys:
+                button.append(types.InlineKeyboardButton(text=author, callback_data=author))
+            keyboard.add(*button)
+            sent = bot.edit_message_text(chat_id=cid, message_id=aid[cid], text=txt, reply_markup=keyboard)    
+            
+            
       
      
 
