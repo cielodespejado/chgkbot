@@ -274,7 +274,7 @@ def callback_inline(call):
             keyboard = types.InlineKeyboardMarkup()
             button = []
             for a in authors_keys:
-                button.append(types.InlineKeyboardButton(text=a, callback_data=author))
+                button.append(types.InlineKeyboardButton(text=a, callback_data=a))
             keyboard.add(*button)
             sent = bot.edit_message_text(chat_id=cid, message_id=aid[cid], text='Выберите автора:', reply_markup=keyboard)  
         elif set_author==True and call.data in authors:
