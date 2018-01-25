@@ -117,7 +117,7 @@ def set_author(m):
         spisok = u.readlines()
         for i in spisok:
             i.split()
-            if i[0] not in alphabet and i[0] != '#':
+            if i[0] not in alphabet and i[0] != '!':
                 alphabet.append(i[0])
     keyboard = types.InlineKeyboardMarkup()
     for letter in alphabet:
