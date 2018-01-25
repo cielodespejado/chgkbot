@@ -5,7 +5,6 @@ from telebot import types
 import time
 from time import sleep
 import browse
-import browse_author
 
 config = configparser.ConfigParser()
 config.read('config.ini')
