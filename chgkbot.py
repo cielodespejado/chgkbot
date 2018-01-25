@@ -125,12 +125,12 @@ def set_year(m):
 def set_author(m):
     cid = m.chat.id
     button = []
+    global alphabet
     with open('Authors.txt', 'r') as u:
         spisok = u.readlines()
         for i in spisok:
             i.split()
             if i[0] not in alphabet and i[0] != '!':
-                global alphabet
                 alphabet.append(i[0])
     keyboard = types.InlineKeyboardMarkup()
     for letter in alphabet:
