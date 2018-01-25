@@ -5,6 +5,7 @@ from telebot import types
 import time
 from time import sleep
 import browse
+import browse_author
 
 config = configparser.ConfigParser()
 config.read('config.ini')
@@ -18,6 +19,7 @@ img_q = {}
 img_a = {}
 qid = {}
 yid = {}
+aid = {}
 year1 = {}
 year2 = {}
 authors = {}
