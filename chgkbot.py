@@ -45,7 +45,7 @@ def start(m):
     cid = m.chat.id
     if cid not in knownUsers:  
         knownUsers.append(cid)
-        with open('uids.txt', 'w') as u:
+        with open('uids.txt', 'w', encoding = 'utf-8') as u:
           u.write(str(cid)+'\n')
         bot.send_message(cid, 'Привет, добро пожаловать')
         help(m)  
@@ -124,7 +124,7 @@ def set_author(m):
     cid = m.chat.id
     button = []
     global alphabet
-    with open('Authors.txt', 'r') as u:
+    with open('Authors.txt', 'r', encoding = 'utf-8') as u:
         spisok = u.readlines()
         for i in spisok:
             i.split()
@@ -262,7 +262,7 @@ def callback_inline(call):
             sent = bot.edit_message_text(chat_id=cid, message_id=yid[cid], text='Интервал сохранён')
             end_int = False
         elif set_author==True and call.data in alphabet:
-            with open('Authors.txt', 'r') as u:
+            with open('Authors.txt', 'r', encoding = 'utf-8') as u:
                 spisok = u.readlines()
                 for i in spisok:
                     i.split()
