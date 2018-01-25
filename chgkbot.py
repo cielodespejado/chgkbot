@@ -173,10 +173,9 @@ def callback_inline(call):
             sent = bot.send_message(cid, '01:00')
             mid = sent.message_id
             global timer
-            timer = True
             interval = 60
             time.sleep(1)
-            while interval and timer:
+            while interval:
                 interval -= 1
                 mins, secs = divmod(interval, 60)
                 t = '{:01d}:{:02d}'.format(mins, secs)
