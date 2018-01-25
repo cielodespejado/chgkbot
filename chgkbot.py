@@ -130,7 +130,7 @@ def set_author(m):
     cid = m.chat.id
     button = []
     global alphabet
-    alphabet = {}
+    alphabet = []
     with open('Authors.txt', 'r', encoding = 'utf-8') as u:
         spisok = u.readlines()
         for i in spisok:
@@ -270,7 +270,7 @@ def callback_inline(call):
             end_int = False
         elif set_author==True and call.data in alphabet:
             authors = {}
-            authors_keys = {}            
+            authors_keys = []            
             with open('Authors.txt', 'r', encoding = 'utf-8') as u:
                 spisok = u.readlines()
                 for i in spisok:
