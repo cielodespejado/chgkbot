@@ -2,6 +2,7 @@ from bs4 import BeautifulSoup
 import urllib
 import requests
 import sys
+import random
 
 def get(year1, year2):
     quest = ['']
