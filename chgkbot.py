@@ -1,4 +1,3 @@
-import config
 import configparser
 import telebot
 from telebot import types
