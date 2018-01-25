@@ -3,4 +3,6 @@ start - Bot description
 help - List of commands
 set_year - Set year range
 rst_year - Reset year range to 2007-actual
+set_author - Choose author
+set_author - Reset choosen author
 timer - Launch timer
