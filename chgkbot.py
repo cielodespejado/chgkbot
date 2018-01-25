@@ -157,6 +157,12 @@ def callback_inline(call):
     cid = call.message.chat.id
     global end_int
     global start_int
+    global year1
+    global year2
+    global set_author
+    global author
+    global authors
+    global authors_keys
     if call.message:
         if call.data == 'timer':
             sent = bot.send_message(cid, '01:00')
@@ -264,9 +270,7 @@ def callback_inline(call):
                     i.split()
                     if i[0] == call.data:
                         k = i.split()
-                        global authors
                         authors[k[0]+' '+k[1]]=k[2]
-                global authors_keys
                 authors_keys = list(authors.keys())
             keyboard = types.InlineKeyboardMarkup()
             button = []
@@ -275,10 +279,8 @@ def callback_inline(call):
             keyboard.add(*button)
             sent = bot.edit_message_text(chat_id=cid, message_id=aid[cid], text='Выберите автора:', reply_markup=keyboard)  
         elif set_author==True and call.data in authors:
-            global author
             author[cid] = authors[call.data]
             sent = bot.edit_message_text(chat_id=cid, message_id=aid[cid], text='Автор выбран')
-            global set_author
             set_author = False
             
 @bot.message_handler(commands=['timer'])    
