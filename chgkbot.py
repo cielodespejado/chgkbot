@@ -246,7 +246,7 @@ def callback_inline(call):
                 spisok = u.readlines()
                 for i in spisok:
                     i.split()
-                    if i[0] == first_letter:
+                    if i[0] == call.data:
                         k = i.split()
                         global authors
                         authors[k[0]+' '+k[1]]=k[2]
