@@ -47,7 +47,7 @@ def start(m):
     cid = m.chat.id
     if cid not in knownUsers:  
         knownUsers.append(cid)
-        with open('uids.txt', 'w', encoding='utf_8') as u:
+        with open('uids.txt', 'w') as u:
           u.write(str(cid)+'\n')
         bot.send_message(cid, 'Привет, добро пожаловать')
         help(m)  
