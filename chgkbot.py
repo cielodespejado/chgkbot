@@ -126,7 +126,8 @@ def set_author(m):
         button.append(types.InlineKeyboardButton(text=letter, callback_data=letter))
     keyboard.add(*button)
     sent = bot.send_message(cid, 'Выберите автора', reply_markup=keyboard)
-    aid[cid] = sent.message_id  
+    aid[cid] = sent.message_id
+    global set_author
     set_author = True
     
 @bot.message_handler(commands=['rst_year'])    
