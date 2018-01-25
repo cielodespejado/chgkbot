@@ -1,0 +1,83 @@
+#Волобуев Игорь ivolobuev r
+#Евланов Максим mevlanov
+#Лещенко Татьяна tleschenko
+#Лисянский Александр alisyansky
+#Паевский Александр apaevsky
+#Санников Вячеслав vsannikov
+#Сарканич Денис dsarkanich
+#Хворова Ольга okhvorova
+Абрамов Андрей anabramov r
+Алхазов Григорий galkhazov r
+Барский Тимур tbarsky r
+Башук Дмитрий dbashuk r
+Белкин Анатолий abelkin r
+Богословский Алексей abogoslovsky r
+Бойко Андрей abojkokiev r
+Боков Тимофей timofejbokov r
+Борок Дмитрий dborok r
+Бороненко Алексей aboronenko r
+Вашкулат Юрий yuvashkulat r
+Ведехин Александр avedekhin r
+Выменец Юрий yuvymenets r
+Гноевых Алексей agnoevykh r
+Голуб Эдуард ehgolub r
+Гончар Денис dgonchar r
+Ершов Павел pershov r
+Ефимов Сергей sefimov r
+Жарков Дмитрий dzharkov
+Иванов Михаил mivanov r
+Калюков Евгений ekalyukov
+Карпук Михаил mkarpuk r
+Климович Леонид lklimovich r
+Кноп Константин kknop r
+Коврижных Николай nkovrizhnykh r
+Колесов Артём akolesov r
+Копейка Евгений ekopejka
+Коробейников Александр akorobejnikov r
+Кудрявцев Александр alkudryavtsev r
+Кудряшова Наталья nkudryashova r
+Кузьма Андрей akuzma r
+Кузьма Ольга okuzma r
+Либер Александр aliber r
+Локшин Михаил mlokshin r
+Лёгенький Николай nlegenky r
+Малкин Михаил mmalkin r
+Матвеев Мишель mmatveev r
+Матухно Артём amatukhno r
+Мерзляков Максим mmerzlyakov r
+Миротин Евгений emirotin r
+Молдавский Вадим vmoldavsky r
+Моносов Борис bmonosov r
+Мялов Виктор vmyalov r
+Науменко Константин knaumenko r
+Некрылов Дмитрий dnekrylov r
+Неумывакина Ольга oneumyvakina
+Николенко Сергей snikolenko r
+Остров Григорий gostrov
+Островский Владимир vostrovsky r
+Перлин Михаил mperlin r
+Петров Дмитрий dpetrov r
+Поникаров Евгений eponikarov
+Поташев Максим mpotashev
+Рождествин Александр arozhdestvin r
+Рубашкин Евгений erubashkin r
+Руссо Максим mrusso r
+Сахаров Константин ksakharov r
+Свинтицкий Дмитрий dsvintitsky r
+Семушин Иван isemushin r
+Смирнов Дмитрий dsmirnov r
+Снеговская-Арш Татьяна tsnegovskayaarsh r
+Солахян Павел psolakhyan r
+Солдатов Андрей andsoldatov r
+Соловьёв Дмитрий dsolovev
+Спешков Сергей sspeshkov r
+Стрильчук Дмитрий dstrilchuk r
+Терентьев Сергей sterentev r
+Трефилов Алексей atrefilov r
+Тюнькин Игорь ityunkin r
+Фарукшин Наиль nfarukshin r
+Черданцев Андрей acherdantsev r
+Чижов Александр achizhov
+Шибанов Серафим sshibanov r
+Шойхет Борис bshojkhet r
+Шорин Сергей sshorin r
