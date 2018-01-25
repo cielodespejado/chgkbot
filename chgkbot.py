@@ -107,6 +107,8 @@ def get_random(m):
 @bot.message_handler(commands=['set_year'])    
 def set_year(m):
     cid = m.chat.id
+    global set_author
+    set_author = False
     keyboard = types.InlineKeyboardMarkup()
     callback_button = types.InlineKeyboardButton(text='1990-2000', callback_data='int1')
     callback_button1 = types.InlineKeyboardButton(text='2001-2010', callback_data='int2')
@@ -121,9 +123,14 @@ def set_year(m):
     
 @bot.message_handler(commands=['set_author'])    
 def set_author(m):
+    global end_int
+    global start_int
+    end_int = False
+    start_int = False
     cid = m.chat.id
     button = []
     global alphabet
+    alphabet = {}
     with open('Authors.txt', 'r', encoding = 'utf-8') as u:
         spisok = u.readlines()
         for i in spisok:
@@ -262,6 +269,8 @@ def callback_inline(call):
             sent = bot.edit_message_text(chat_id=cid, message_id=yid[cid], text='Интервал сохранён')
             end_int = False
         elif set_author==True and call.data in alphabet:
+            authors = {}
+            authors_keys = {}            
             with open('Authors.txt', 'r', encoding = 'utf-8') as u:
                 spisok = u.readlines()
                 for i in spisok:
