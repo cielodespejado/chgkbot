@@ -119,7 +119,7 @@ def get_author(author, year1, year2):
         quest.append(r)
         quest.append('\n')
         
-    for i in range(a+2,b-1):
+    for i in range(a+2,b):
         quest.append(words[i])
     quest.append('\n')
     
