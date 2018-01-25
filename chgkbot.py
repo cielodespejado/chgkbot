@@ -204,7 +204,7 @@ def callback_inline(call):
                 button.append(types.InlineKeyboardButton(text=str(text), callback_data=str(text)))
             keyboard.add(*button)
             sent = bot.edit_message_text(chat_id=cid, message_id=yid[cid], text=txt, reply_markup=keyboard)
-        elif int(call.data) in range(1991,act_year+1) and start_int==True:
+        elif start_int==True and int(call.data) in range(1991,act_year+1):
             year1[cid]=call.data
             button = []  
             keyboard = types.InlineKeyboardMarkup()
@@ -236,11 +236,11 @@ def callback_inline(call):
             sent = bot.edit_message_text(chat_id=cid, message_id=yid[cid], text='Выберите конец интервала', reply_markup=keyboard)
             end_int = True
             start_int = False
-        elif int(call.data) in range(1991,act_year+1) and end_int==True:
+        elif end_int==True and int(call.data) in range(1991,act_year+1):
             year2[cid]=call.data
             sent = bot.edit_message_text(chat_id=cid, message_id=yid[cid], text='Интервал сохранён')
             end_int = False
-        elif ord(call.data) in range(ord('А'), ord('Я')) and set_author==True:
+        elif set_author==True and ord(call.data) in range(ord('А'), ord('Я')):
             with open('Authors.txt', 'r') as u:
                 spisok = u.readlines()
                 for i in spisok:
@@ -258,10 +258,6 @@ def callback_inline(call):
             keyboard.add(*button)
             sent = bot.edit_message_text(chat_id=cid, message_id=aid[cid], text=txt, reply_markup=keyboard)    
             
-            
-      
-     
-
 @bot.message_handler(commands=['timer'])    
 def timer(m):
     cid = m.chat.id
