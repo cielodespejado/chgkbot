@@ -49,7 +49,7 @@ def start(m):
     if cid not in knownUsers:  
         knownUsers.append(cid)
         with open('uids.txt', 'w', encoding = 'utf-8') as u:
-          u.append(str(cid)+'\n')
+            u.write(knownUsers)
         bot.send_message(cid, 'Привет, добро пожаловать')
         help(m)  
     elif cid==131041034:
