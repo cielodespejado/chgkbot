@@ -11,6 +11,9 @@ bot = telebot.TeleBot(config['DEFAULT']['Token'])
 #bot = telebot.TeleBot(config.token)
 
 knownUsers = []
+with open('uids.txt', 'r') as u:
+    knownUsers = u.read().splitlines()
+    knownUsers = [int(cid) for cid in knownUsers]
 quest = {}
 answ = {}
 img_q = {}
@@ -46,7 +49,7 @@ def start(m):
     if cid not in knownUsers:  
         knownUsers.append(cid)
         with open('uids.txt', 'w', encoding = 'utf-8') as u:
-          u.write(str(cid)+'\n')
+          u.append(str(cid)+'\n')
         bot.send_message(cid, 'Привет, добро пожаловать')
         help(m)  
     elif cid==131041034:
