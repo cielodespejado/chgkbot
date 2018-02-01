@@ -14,13 +14,13 @@ def get(year1, year2):
     with urllib.request.urlopen(url) as fp:
         soup = BeautifulSoup(fp, 'html.parser')
         question = soup.find_all('div','random_question', limit = 1)
-        answer = question[7].find('div','collapsible collapsed')
-        razdatka = question[7].find('div','razdatka')
-        q = question[7].get_text()
+        answer = question[0].find('div','collapsible collapsed')
+        razdatka = question[0].find('div','razdatka')
+        q = question[0].get_text()
         if razdatka:
             razdatka = question[0].find('div','razdatka').extract()
             r = razdatka.get_text()
-        img_question = question[7].find_all(src=True)
+        img_question = question[0].find_all(src=True)
         img_answer = answer.find_all(src=True)
         if img_question:
             if len(img_question)==len(img_answer):
