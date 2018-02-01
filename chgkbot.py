@@ -91,20 +91,21 @@ def get_random(m):
         f = browse.get_author(a,y1,y2)
         quest[cid] = f[0]
         answ[cid] = f[1]
-        img_q[cid] = f[2]
-        img_a[cid] = f[3]
+        img_q[cid] = *f[2]
+        img_a[cid] = *f[3]
     else:
         f = browse.get(y1,y2)
         quest[cid] = f[0]
         answ[cid] = f[1]
-        img_q[cid] = f[2]
-        img_a[cid] = f[3]
+        img_q[cid] = *f[2]
+        img_a[cid] = *f[3]
     keyboard = types.InlineKeyboardMarkup()
     callback_button = types.InlineKeyboardButton(text='Показать ответ', callback_data='answer')
     callback_button1 = types.InlineKeyboardButton(text='Запустить таймер', callback_data='timer')
     keyboard.add(callback_button, callback_button1)
     if img_q[cid]:
-          bot.send_photo(cid, img_q[cid])
+        for img in img_q[cid]:
+            bot.send_photo(cid, img)
     sent = bot.send_message(cid, quest[cid], reply_markup=keyboard)
     qid[cid] = sent.message_id
     
@@ -195,7 +196,8 @@ def callback_inline(call):
                 timer = False
             bot.send_message(cid, answ[cid])
             if img_a[cid]:
-                bot.send_photo(cid, img_a[cid])
+                for img in img_a[cid]:
+                    bot.send_photo(cid, img)
             bot.edit_message_text(chat_id=cid, message_id=qid[cid], text=quest[cid])
         elif call.data == 'int1':
             keyboard = types.InlineKeyboardMarkup()
