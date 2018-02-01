@@ -91,14 +91,14 @@ def get_random(m):
         f = browse.get_author(a,y1,y2)
         quest[cid] = f[0]
         answ[cid] = f[1]
-        img_q[cid] = *f[2]
-        img_a[cid] = *f[3]
+        img_q[cid] = f[2]
+        img_a[cid] = f[3]
     else:
         f = browse.get(y1,y2)
         quest[cid] = f[0]
         answ[cid] = f[1]
-        img_q[cid] = *f[2]
-        img_a[cid] = *f[3]
+        img_q[cid] = f[2]
+        img_a[cid] = f[3]
     keyboard = types.InlineKeyboardMarkup()
     callback_button = types.InlineKeyboardButton(text='Показать ответ', callback_data='answer')
     callback_button1 = types.InlineKeyboardButton(text='Запустить таймер', callback_data='timer')
