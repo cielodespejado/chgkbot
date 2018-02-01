@@ -80,14 +80,14 @@ def get_author(author, year1, year2):
     answ = ['']
     img_q = []
     img_a = []
-    url = 'https://db.chgk.info/search/questions/author_ikolmakov/types1/from_2017-07-21/to_2017-07-21'
+    url = 'https://db.chgk.info/search/questions/author_ivolobuev/from_2012-03-25/to_2012-03-25'
     #url = 'https://db.chgk.info/search/questions/author_'+author+'/types1/sort_date/from_'+year1+'-01-01/to_'+year2+'-12-31/limit10000'
     with urllib.request.urlopen(url) as fp:
         soup = BeautifulSoup(fp, 'html.parser')
         allquests = soup.find_all('div','question')
         tournaments = soup.find_all('dt','title')
         #N = random.randint(0,len(allquests)-1)
-        N = 0
+        N = 3
         tournament = tournaments[N].get_text()
         razdatka = allquests[N].find('div','razdatka')
         if razdatka:
