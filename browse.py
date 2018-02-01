@@ -87,7 +87,7 @@ def get_author(author, year1, year2):
         allquests = soup.find_all('div','question')
         tournaments = soup.find_all('dt','title')
         #N = random.randint(0,len(allquests)-1)
-        N = 3
+        N = 6
         tournament = tournaments[N].get_text()
         razdatka = allquests[N].find('div','razdatka')
         if razdatka:
