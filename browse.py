@@ -9,8 +9,7 @@ def get(year1, year2):
     answ = ['']
     img_q = []
     img_a = []
-    url = 'https://db.chgk.info/random/from_2006-07-29/to_2006-07-29/types1/1682335929'
-    #url = 'http://db.chgk.info/random/from_'+year1+'-01-01/to_'+year2+'-12-31/types1/'
+    url = 'http://db.chgk.info/random/from_'+year1+'-01-01/to_'+year2+'-12-31/types1/'
     with urllib.request.urlopen(url) as fp:
         soup = BeautifulSoup(fp, 'html.parser')
         question = soup.find_all('div','random_question', limit = 1)
@@ -81,14 +80,14 @@ def get_author(author, year1, year2):
     answ = ['']
     img_q = []
     img_a = []
-    url = 'https://db.chgk.info/search/questions/author_mklejman/from_2006-07-29/to_2006-07-29'
+    url = 'https://db.chgk.info/search/questions/author_ikolmakov/types1/from_2017-07-21/to_2017-07-21'
     #url = 'https://db.chgk.info/search/questions/author_'+author+'/types1/sort_date/from_'+year1+'-01-01/to_'+year2+'-12-31/limit10000'
     with urllib.request.urlopen(url) as fp:
         soup = BeautifulSoup(fp, 'html.parser')
         allquests = soup.find_all('div','question')
         tournaments = soup.find_all('dt','title')
         #N = random.randint(0,len(allquests)-1)
-        N = 1
+        N = 0
         tournament = tournaments[N].get_text()
         razdatka = allquests[N].find('div','razdatka')
         if razdatka:
