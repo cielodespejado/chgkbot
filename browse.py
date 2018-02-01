@@ -7,27 +7,34 @@ import random
 def get(year1, year2):
     quest = ['']
     answ = ['']
-    url = 'http://db.chgk.info/random/from_'+year1+'-01-01/to_'+year2+'-12-31/types1/'
+    img_q = []
+    img_a = []
+    url = 'https://db.chgk.info/search/questions/author_mklejman/from_2006-07-29/to_2006-07-29'
+    #url = 'http://db.chgk.info/random/from_'+year1+'-01-01/to_'+year2+'-12-31/types1/'
     with urllib.request.urlopen(url) as fp:
         soup = BeautifulSoup(fp, 'html.parser')
         question = soup.find_all('div','random_question', limit = 1)
-        answer = question[0].find('div','collapsible collapsed')
-        razdatka = question[0].find('div','razdatka')
-        q = question[0].get_text()
+        answer = question[7].find('div','collapsible collapsed')
+        razdatka = question[7].find('div','razdatka')
+        q = question[7].get_text()
         if razdatka:
             razdatka = question[0].find('div','razdatka').extract()
             r = razdatka.get_text()
-        img_q = question[0].find_all('img')
-        img_a = answer.find_all('img', limit = 1)
-        if img_q:
-            if len(img_a)==len(img_a):
-                img_q = []
-            elif len(img_q)>len(img_a):
-                img_q[:len(img_q)-len(img_a)]
-        if img_q:
-            img_q = img_q[0].get('src')
-        if img_a:
-            img_a = img_a[0].get('src')
+        img_question = question[7].find_all(src=True)
+        img_answer = answer.find_all(src=True)
+        if img_question:
+            if len(img_question)==len(img_answer):
+                img_question = []
+            elif len(img_question)>len(img_answer):
+                img_question[:len(img_question)-len(img_answer)]
+        if img_question:
+            for n in img_question:
+                m = n.get('src')
+                img_q.append(m)
+        if img_answer:
+            for n in img_answer:
+                m = n.get('src')
+                img_a.append(m)
 
     words = q.split()
     a = b = c = d = e = f = 0
@@ -64,20 +71,24 @@ def get(year1, year2):
     for i in range(0,a-1):
         answ.append(words[i])
     answ.append('\nВыбранный диапазон лет: '+year1+'...'+year2+'\n')
-    quest = (' '.join(quest)).replace(" \n ", "\n")
-    answ = (' '.join(answ)).replace(" \n ", "\n")
+    quest = (' '.join(quest)).replace(' \n ', '\n')
+    answ = (' '.join(answ)).replace(' \n ', '\n')
     return (quest, answ, img_q, img_a)
 
 
 def get_author(author, year1, year2):
     quest = ['']
     answ = ['']
-    url = 'https://db.chgk.info/search/questions/author_'+author+'/types1/sort_date/from_'+year1+'-01-01/to_'+year2+'-12-31/limit10000'
+    img_q = []
+    img_a = []
+    url = 'https://db.chgk.info/search/questions/author_mklejman/from_2006-07-29/to_2006-07-29'
+    #url = 'https://db.chgk.info/search/questions/author_'+author+'/types1/sort_date/from_'+year1+'-01-01/to_'+year2+'-12-31/limit10000'
     with urllib.request.urlopen(url) as fp:
         soup = BeautifulSoup(fp, 'html.parser')
         allquests = soup.find_all('div','question')
         tournaments = soup.find_all('dt','title')
-        N = random.randint(0,len(allquests)-1)
+        #N = random.randint(0,len(allquests)-1)
+        N = 1
         tournament = tournaments[N].get_text()
         razdatka = allquests[N].find('div','razdatka')
         if razdatka:
@@ -85,12 +96,17 @@ def get_author(author, year1, year2):
             r = razdatka.get_text()
         question = allquests[N].get_text()    
         soup1 = BeautifulSoup(str(allquests[N]), 'html.parser')
-        img_q = soup1.find('strong','Answer').find_previous('img')
-        img_a = soup1.find('strong','Answer').find_next('img')
-        if img_q:
-            img_q = img_q.get('src')
-        if img_a:
-            img_a = img_a.get('src')    
+        img_question = soup1.find('strong','Answer').find_all_previous(src=True)
+        img_answer = soup1.find('strong','Answer').find_all_next(src=True)
+        if img_question:
+            for n in img_question:
+                m = n.get('src')
+                img_q.append(m)
+        if img_answer:
+            for n in img_answer:
+                m = n.get('src')
+                img_a.append(m)
+
 
     words = question.split()
     a = b = c = d = e = f = 0
@@ -123,14 +139,18 @@ def get_author(author, year1, year2):
         for j in range(coords[i],coords[i+1]):
             answ.append(words[j])
         answ.append('\n')
-
     answ.append(tournament)
     answ.append('Выбранный диапазон лет: '+year1+'...'+year2+'\n')
-    quest = (' '.join(quest)).replace(" \n ", "\n")
-    answ = (' '.join(answ)).replace(" \n ", "\n")
+    quest = (' '.join(quest)).replace(' \n ', '\n')
+    answ = (' '.join(answ)).replace(' \n ', '\n')
     return (quest, answ, img_q, img_a)
 
 #print (quest,'\n',answ,'\n',img_q,'\n',img_a)
+
+
+
+
+
 
 
 
