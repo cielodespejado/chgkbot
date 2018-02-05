@@ -235,7 +235,10 @@ def callback_inline(call):
                 i = 2001
             else:
                 txt = 'Выберите конец интервала'
-                i = int(DB[cid].year1)
+                if int(DB[cid].year1)>=2001:
+                    i = int(DB[cid].year1)
+                else:
+                    i = 2001
             for text in range(i,2011):
                 button.append(types.InlineKeyboardButton(text=str(text), callback_data=str(text)))
             keyboard.add(*button)    
@@ -248,7 +251,10 @@ def callback_inline(call):
                 i = 2011
             else:
                 txt = 'Выберите конец интервала'
-                i = int(DB[cid].year1)
+                if int(DB[cid].year1)>=2011:
+                    i = int(DB[cid].year1)
+                else:
+                    i = 2011
             for text in range(i,act_year):
                 button.append(types.InlineKeyboardButton(text=str(text), callback_data=str(text)))
             keyboard.add(*button)
