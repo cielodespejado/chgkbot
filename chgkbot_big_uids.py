@@ -93,7 +93,7 @@ def get_random(m):
     y1 = DB[cid].year1
     y2 = DB[cid].year2
     a = DB[cid].author
-    if a != None:
+    if a != 'None':
         f = browse.get_author(a,y1,y2)
         quest[cid] = f[0]
         answ[cid] = f[1]
