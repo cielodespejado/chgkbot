@@ -13,7 +13,7 @@ bot = telebot.TeleBot(config['DEFAULT']['Token'])
 
 DB = {}
 db = namedtuple('db', 'year1 year2 author')
-with open('uids.txt', 'r') as u:
+with open('big_uids.txt', 'r') as u:
     k = u.readlines()
     for i in k:
         n = i.split()
