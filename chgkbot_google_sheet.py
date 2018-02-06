@@ -76,6 +76,7 @@ commands = {  'start': 'Описание бота',
 @bot.message_handler(commands=['start'])
 def start(m):
     cid = m.chat.id
+    global DB
     if cid not in DB:
         DB = Edit_sheet.add_to_sheet(cid)
         bot.send_message(cid, 'Привет, добро пожаловать')
@@ -91,6 +92,7 @@ def start(m):
 @bot.message_handler(commands=['help'])
 def help(m):
     cid = m.chat.id
+    global DB
     if cid not in DB:
         DB = Edit_sheet.add_to_sheet(cid)
     help_text = 'Доступны следующие команды: \n'
@@ -106,6 +108,7 @@ def get_random(m):
     global img_q
     global img_a
     global qid
+    global DB
     cid = m.chat.id
     if cid not in DB:
         DB = Edit_sheet.add_to_sheet(cid)
@@ -137,6 +140,7 @@ def get_random(m):
 @bot.message_handler(commands=['set_year'])    
 def set_year(m):
     cid = m.chat.id
+    global DB
     if cid not in DB:
         DB = Edit_sheet.add_to_sheet(cid)
     global set_author
@@ -157,6 +161,7 @@ def set_year(m):
 def set_author(m):
     global end_int
     global start_int
+    global DB
     end_int = False
     start_int = False
     cid = m.chat.id
@@ -183,6 +188,7 @@ def set_author(m):
 @bot.message_handler(commands=['rst_year'])    
 def rst_year(m):
     cid = m.chat.id
+    global DB
     if cid not in DB:
         DB = Edit_sheet.add_to_sheet(cid)
     DB[cid] = DB[cid]._replace(year1 = 2007, year2 = time.gmtime().tm_year)
@@ -191,6 +197,7 @@ def rst_year(m):
 @bot.message_handler(commands=['rst_author'])    
 def rst_author(m):
     cid = m.chat.id
+    global DB
     if cid not in DB:
         DB = Edit_sheet.add_to_sheet(cid)
     DB[cid] = DB[cid]._replace(author = None)
@@ -207,6 +214,7 @@ def callback_inline(call):
     global author
     global authors
     global authors_keys
+    global DB
     if call.message:
         if call.data == 'timer':
             sent = bot.send_message(cid, '01:00')
