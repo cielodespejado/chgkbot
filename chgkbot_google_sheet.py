@@ -192,7 +192,7 @@ def rst_year(m):
     if cid not in DB:
         DB = Edit_sheet.add_to_sheet(cid)
     DB[cid] = DB[cid]._replace(year1 = 2007, year2 = time.gmtime().tm_year)
-    DB = Edit_sheet.edit_sheet(cid)
+    DB = Edit_sheet.edit_sheet(cid, DB)
     
 @bot.message_handler(commands=['rst_author'])    
 def rst_author(m):
@@ -201,7 +201,7 @@ def rst_author(m):
     if cid not in DB:
         DB = Edit_sheet.add_to_sheet(cid)
     DB[cid] = DB[cid]._replace(author = None)
-    DB = Edit_sheet.edit_sheet(cid)
+    DB = Edit_sheet.edit_sheet(cid, DB)
     
 @bot.callback_query_handler(func=lambda call: True)
 def callback_inline(call):
@@ -320,7 +320,7 @@ def callback_inline(call):
             start_int = False
         elif end_int==True and int(call.data) in range(1991,act_year+1):
             DB[cid] = DB[cid]._replace(year2 = call.data)
-            DB = Edit_sheet.edit_sheet(cid)
+            DB = Edit_sheet.edit_sheet(cid, DB)
             sent = bot.edit_message_text(chat_id=cid, message_id=yid[cid], text='Интервал сохранён')
             end_int = False
         elif set_author==True and call.data in alphabet:
@@ -342,7 +342,7 @@ def callback_inline(call):
             sent = bot.edit_message_text(chat_id=cid, message_id=aid[cid], text='Выберите автора:', reply_markup=keyboard)  
         elif set_author==True and call.data in authors:
             DB[cid] = DB[cid]._replace(author = authors[call.data])
-            DB = Edit_sheet.edit_sheet(cid)
+            DB = Edit_sheet.edit_sheet(cid, DB)
             sent = bot.edit_message_text(chat_id=cid, message_id=aid[cid], text='Автор выбран')
             set_author = False
             
