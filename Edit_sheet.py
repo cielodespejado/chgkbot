@@ -20,7 +20,6 @@ def get_credentials():
         credentials = tools.run_flow(flow, store, flags)
     return credentials
 
-
 credentials = get_credentials()
 http = credentials.authorize(httplib2.Http())
 discoveryUrl = ('https://sheets.googleapis.com/$discovery/rest?' 'version=v4')
@@ -29,8 +28,6 @@ spreadsheetId = '1zdjZ5UCNZSVlp_R_4DxOm4JFGxsguiSyaIaOON5hB0o'
 
 DB = {}
 db = namedtuple('db', 'year1 year2 author')
-
-
 
 def edit_sheet(cid, DB):
     result = service.spreadsheets().values().get(spreadsheetId=spreadsheetId, range='A2:A', majorDimension='ROWS').execute()
@@ -46,9 +43,8 @@ def edit_sheet(cid, DB):
         DB[int(i[0])] = db(i[1],i[2],i[3])
     return DB    
 
-
 def add_to_sheet(cid):
-    body = {'range':'A2:D','majorDimension':'ROWS','values':[[cid, 2007, time.gmtime().tm_year,'None']]}
+    body = {'range':'A2:D','majorDimension':'ROWS','values':[[cid, '2007', str(time.gmtime().tm_year),'None']]}
     app = service.spreadsheets().values().append(spreadsheetId=spreadsheetId, range='A2:D', valueInputOption='RAW', insertDataOption='INSERT_ROWS', body=body).execute()
     result = service.spreadsheets().values().get(spreadsheetId=spreadsheetId, range='A2:D', majorDimension='ROWS').execute()
     values = result.get('values')
