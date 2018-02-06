@@ -200,7 +200,7 @@ def rst_author(m):
     global DB
     if cid not in DB:
         DB = Edit_sheet.add_to_sheet(cid)
-    DB[cid] = DB[cid]._replace(author = None)
+    DB[cid] = DB[cid]._replace(author = 'None')
     DB = Edit_sheet.edit_sheet(cid, DB)
     
 @bot.callback_query_handler(func=lambda call: True)
