@@ -31,7 +31,8 @@ credentials = get_credentials()
 http = credentials.authorize(httplib2.Http())
 discoveryUrl = ('https://sheets.googleapis.com/$discovery/rest?' 'version=v4')
 service = discovery.build('sheets', 'v4', http = http, discoveryServiceUrl = discoveryUrl)
-spreadsheetId = '1zdjZ5UCNZSVlp_R_4DxOm4JFGxsguiSyaIaOON5hB0o'
+cid_sheetId = '1zdjZ5UCNZSVlp_R_4DxOm4JFGxsguiSyaIaOON5hB0o'
+auth_sheetId = '1K29LUf6awYIgq9WAunhbCL-QBHHZy-CwjqFkYSYtJgY'
 
 config = configparser.ConfigParser()
 config.read('config.ini')
@@ -42,11 +43,29 @@ DB = {}
 db = namedtuple('db', 'year1 year2 author')
 
 ## Получение файла с настройками пользователей из таблицы
-result = service.spreadsheets().values().get(spreadsheetId=spreadsheetId, range='A2:D', majorDimension='ROWS').execute()
+result = service.spreadsheets().values().get(spreadsheetId=cid_sheetId, range='A2:D', majorDimension='ROWS').execute()
 values = result.get('values')
 for i in values:
     DB[int(i[0])] = db(i[1],i[2],i[3])
-    
+
+def get_authors():
+    authors = {}
+    alphabet = {}
+    result = service.spreadsheets().values().get(spreadsheetId=auth_sheetId, range='A1:B', majorDimension='ROWS').execute()
+    values = result.get('values')
+    values.sort()
+    for i in values:
+        authors[i[0]] = i[1]
+        k = str(i[0].split())
+        if k[2] not in alphabet:
+            authors_keys = []
+            authors_keys.append(i[0])
+            alphabet[k[2]] = authors_keys
+        else:
+            authors_keys.append(i[0])
+            alphabet[k[2]] = authors_keys
+    return authors, alphabet
+
 quest = {}
 answ = {}
 img_q = {}
@@ -54,9 +73,6 @@ img_a = {}
 qid = {}
 yid = {}
 aid = {}
-authors = {}
-authors_keys = []
-alphabet = []
 end_int = False
 start_int = False
 set_author = False
@@ -162,22 +178,19 @@ def set_author(m):
     global end_int
     global start_int
     global DB
+    global alphabet
+    global authors
     end_int = False
     start_int = False
     cid = m.chat.id
     if cid not in DB:
         DB = Edit_sheet.add_to_sheet(cid)
-    button = []
-    global alphabet
-    alphabet = []
-    with open('Authors.txt', 'r', encoding = 'utf-8') as u:
-        spisok = u.readlines()
-        for i in spisok:
-            i.split()
-            if i[0] not in alphabet:
-                alphabet.append(i[0])
+    f = get_author()
+    authors = f[0]
+    alphabet = f[1]
     keyboard = types.InlineKeyboardMarkup()
-    for letter in alphabet:
+    button = []
+    for letter in list(alphabet.keys()):
         button.append(types.InlineKeyboardButton(text=letter, callback_data=letter))
     keyboard.add(*button)
     sent = bot.send_message(cid, 'Выберите автора:', reply_markup=keyboard)
@@ -191,7 +204,7 @@ def rst_year(m):
     global DB
     if cid not in DB:
         DB = Edit_sheet.add_to_sheet(cid)
-    DB[cid] = DB[cid]._replace(year1 = 2007, year2 = time.gmtime().tm_year)
+    DB[cid] = DB[cid]._replace(year1 = '2007', year2 = str(time.gmtime().tm_year))
     DB = Edit_sheet.edit_sheet(cid, DB)
     
 @bot.message_handler(commands=['rst_author'])    
@@ -324,19 +337,9 @@ def callback_inline(call):
             sent = bot.edit_message_text(chat_id=cid, message_id=yid[cid], text='Интервал сохранён')
             end_int = False
         elif set_author==True and call.data in alphabet:
-            authors = {}
-            authors_keys = []            
-            with open('Authors.txt', 'r', encoding = 'utf-8') as u:
-                spisok = u.readlines()
-                for i in spisok:
-                    i.split()
-                    if i[0] == call.data:
-                        k = i.split()
-                        authors[k[0]+' '+k[1]] = k[2]
-                authors_keys = list(authors.keys())
             keyboard = types.InlineKeyboardMarkup(row_width = 2)
             button = []
-            for a in authors_keys:
+            for a in alphabet[call.data]:
                 button.append(types.InlineKeyboardButton(text=a, callback_data=a))
             keyboard.add(*button)
             sent = bot.edit_message_text(chat_id=cid, message_id=aid[cid], text='Выберите автора:', reply_markup=keyboard)  
