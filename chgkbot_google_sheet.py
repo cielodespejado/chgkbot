@@ -287,7 +287,7 @@ def callback_inline(call):
             keyboard.add(*button)
             sent = bot.edit_message_text(chat_id=cid, message_id=yid[cid], text=txt, reply_markup=keyboard)
         elif start_int==True and int(call.data) in range(1991,act_year+1):
-            DB[cid] = DB[cid]._replace(year1 = int(call.data))
+            DB[cid] = DB[cid]._replace(year1 = call.data)
             button = []  
             keyboard = types.InlineKeyboardMarkup()
             if 1990<int(call.data)<2000:
@@ -319,7 +319,7 @@ def callback_inline(call):
             end_int = True
             start_int = False
         elif end_int==True and int(call.data) in range(1991,act_year+1):
-            DB[cid] = DB[cid]._replace(year2 = int(call.data))
+            DB[cid] = DB[cid]._replace(year2 = call.data)
             DB = Edit_sheet.edit_sheet(cid)
             sent = bot.edit_message_text(chat_id=cid, message_id=yid[cid], text='Интервал сохранён')
             end_int = False
