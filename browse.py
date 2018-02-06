@@ -142,7 +142,7 @@ def get_author(author, year1, year2):
         answ = (' '.join(answ)).replace(' \n ', '\n')
         return (quest, answ, img_q, img_a)
     else:
-        return ('Попробуйте выбрать другой временной диапазон')
+        return (['Попробуйте выбрать другой временной диапазон'])
 
 #print (quest,'\n',answ,'\n',img_q,'\n',img_a)
 
