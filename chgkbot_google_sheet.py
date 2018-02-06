@@ -185,7 +185,7 @@ def set_author(m):
     cid = m.chat.id
     if cid not in DB:
         DB = Edit_sheet.add_to_sheet(cid)
-    f = get_author()
+    f = get_authors()
     authors = f[0]
     alphabet = f[1]
     keyboard = types.InlineKeyboardMarkup()
