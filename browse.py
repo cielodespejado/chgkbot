@@ -85,6 +85,7 @@ def get_author(author, year1, year2):
         soup = BeautifulSoup(fp, 'html.parser')
         allquests = soup.find_all('div','question')
         tournaments = soup.find_all('dt','title')
+    if len(allquests)>0:
         N = random.randint(0,len(allquests)-1)
         tournament = tournaments[N].get_text()
         razdatka = allquests[N].find('div','razdatka')
@@ -104,50 +105,46 @@ def get_author(author, year1, year2):
                 m = n.get('src')
                 img_a.append(m)
 
+        words = question.split()
+        a = b = c = d = e = f = 0
+        for i,word in enumerate(words):
+            if word == 'Ответ:':
+                b = i
+            if word == 'Зачёт:':
+                c = i
+            if word == 'Комментарий:':
+                d = i
+            if word == 'Источник(и):':
+                e = i
+            if word == 'Автор:' or word == 'Авторы:':
+                f = i
+            elif word == 'Вопрос':
+                a = i
 
-    words = question.split()
-    a = b = c = d = e = f = 0
-    for i,word in enumerate(words):
-        if word == 'Ответ:':
-            b = i
-        if word == 'Зачёт:':
-            c = i
-        if word == 'Комментарий:':
-            d = i
-        if word == 'Источник(и):':
-            e = i
-        if word == 'Автор:' or word == 'Авторы:':
-            f = i
-        elif word == 'Вопрос':
-            a = i
+        coords = [b,c,d,e,f,len(words)-1]
+        coords = [i for i in coords if i!=0]
 
-    coords = [b,c,d,e,f,len(words)-1]
-    coords = [i for i in coords if i!=0]
-
-    if razdatka:
-        quest.append(r)
+        if razdatka:
+            quest.append(r)
+            quest.append('\n')
+            
+        for i in range(a+2,b):
+            quest.append(words[i])
         quest.append('\n')
         
-    for i in range(a+2,b):
-        quest.append(words[i])
-    quest.append('\n')
-    
-    for i in range(0,len(coords)-1):
-        for j in range(coords[i],coords[i+1]):
-            answ.append(words[j])
-        answ.append('\n')
-    answ.append(tournament)
-    answ.append('Выбранный диапазон лет: '+year1+'...'+year2+'\n')
-    quest = (' '.join(quest)).replace(' \n ', '\n')
-    answ = (' '.join(answ)).replace(' \n ', '\n')
-    return (quest, answ, img_q, img_a)
+        for i in range(0,len(coords)-1):
+            for j in range(coords[i],coords[i+1]):
+                answ.append(words[j])
+            answ.append('\n')
+        answ.append(tournament)
+        answ.append('Выбранный диапазон лет: '+year1+'...'+year2+'\n')
+        quest = (' '.join(quest)).replace(' \n ', '\n')
+        answ = (' '.join(answ)).replace(' \n ', '\n')
+        return (quest, answ, img_q, img_a)
+    else:
+        return ('Попробуйте выбрать другой временной диапазон')
 
 #print (quest,'\n',answ,'\n',img_q,'\n',img_a)
-
-
-
-
-
 
 
 

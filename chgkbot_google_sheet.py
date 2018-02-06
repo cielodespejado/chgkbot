@@ -133,10 +133,14 @@ def get_random(m):
     a = DB[cid].author
     if a != 'None':
         f = browse.get_author(a,y1,y2)
-        quest[cid] = f[0]
-        answ[cid] = f[1]
-        img_q[cid] = f[2]
-        img_a[cid] = f[3]
+        if len(f) == 1:
+            sent = bot.send_message(cid, f[0])
+            return
+        else:
+            quest[cid] = f[0]
+            answ[cid] = f[1]
+            img_q[cid] = f[2]
+            img_a[cid] = f[3]
     else:
         f = browse.get(y1,y2)
         quest[cid] = f[0]
