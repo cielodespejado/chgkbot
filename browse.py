@@ -15,10 +15,10 @@ def get(year1, year2):
         question = soup.find_all('div','random_question', limit = 1)
         answer = question[0].find('div','collapsible collapsed')
         razdatka = question[0].find('div','razdatka')
-        q = question[0].get_text()
         if razdatka:
             razdatka = question[0].find('div','razdatka').extract()
             r = razdatka.get_text()
+        q = question[0].get_text()
         img_question = question[0].find_all(src=True)
         img_answer = answer.find_all(src=True)
         if img_question:
