@@ -25,7 +25,7 @@ def get(year1, year2):
             if len(img_question)==len(img_answer):
                 img_question = []
             elif len(img_question)>len(img_answer):
-                img_question[:len(img_question)-len(img_answer)]
+                img_question = img_question[:len(img_question)-len(img_answer)]
         if img_question:
             for n in img_question:
                 m = n.get('src')
