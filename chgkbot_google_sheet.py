@@ -359,8 +359,7 @@ def callback_inline(call):
         elif call.data == 'next_question':
             mid = call.message.message_id
             get_random(call.message) 
-            keyboard = types.InlineKeyboardRemove(selective=False)
-            bot.edit_message_reply_markup(chat_id=cid, message_id=mid, reply_markup=keyboard)
+            bot.edit_message_reply_markup(chat_id=cid, message_id=mid, reply_markup=None)
 #           bot.delete_message(cid, mid)
             
 @bot.message_handler(commands=['timer'])    
