@@ -104,7 +104,6 @@ def start(m):
         bot.send_message(cid, 'Снова привет!')
         help(m)
 
-
 @bot.message_handler(commands=['help'])
 def help(m):
     cid = m.chat.id
@@ -360,7 +359,7 @@ def callback_inline(call):
         elif call.data == 'next_question':
             mid = call.message.message_id
             get_random(call.message) 
-            bot.delete_message(cid, mid)
+#            bot.delete_message(cid, mid)
             
 @bot.message_handler(commands=['timer'])    
 def timer(m):
