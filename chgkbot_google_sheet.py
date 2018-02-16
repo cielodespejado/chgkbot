@@ -89,14 +89,6 @@ commands = {  'start': 'Описание бота',
               'timer': 'Запустить таймер'
            }
 
-@bot.message_handler(commands=['test'])
-def test(m):
-    cid = m.chat.id
-    keyboard = types.InlineKeyboardMarkup()
-    callback_button = types.InlineKeyboardButton(text='Следующий вопрос', callback_data='next_question')
-    keyboard.add(callback_button)
-    sent = bot.send_message(cid, 'Ещё вопрос', reply_markup=keyboard)
-
 @bot.message_handler(commands=['start'])
 def start(m):
     cid = m.chat.id
@@ -259,12 +251,17 @@ def callback_inline(call):
             time.sleep(5)
             bot.delete_message(cid, mid)
         elif call.data == 'answer':
+            keyboard = types.InlineKeyboardMarkup()
+            callback_button = types.InlineKeyboardButton(text='Следующий вопрос', callback_data='next_question')
+            keyboard.add(callback_button)
             if timer:
                 timer = False
-            bot.send_message(cid, answ[cid])
             if img_a[cid]:
+                bot.send_message(cid, answ[cid])
                 for img in img_a[cid]:
-                    bot.send_photo(cid, img)
+                    bot.send_photo(cid, img, reply_markup=keyboard)
+            else:
+                bot.send_message(cid, answ[cid], reply_markup=keyboard)
             bot.edit_message_text(chat_id=cid, message_id=qid[cid], text=quest[cid])
         elif call.data == 'int1':
             keyboard = types.InlineKeyboardMarkup()
