@@ -357,10 +357,10 @@ def callback_inline(call):
             sent = bot.edit_message_text(chat_id=cid, message_id=aid[cid], text='Автор выбран')
             set_author = False
         elif call.data == 'next_question':
-            mid = call.message.message_id
+            mid = call.message.message.id
             get_random(call.message) 
             keyboard = types.ReplyKeyboardRemove(selective=False)
-#            bot.edit_message_text(chat_id=cid, message_id=mid, reply_markup=keyboard)
+            bot.edit_message_ReplyMarkup(chat_id=cid, message_id=mid, reply_markup=keyboard)
 #            bot.delete_message(cid, mid)
             
 @bot.message_handler(commands=['timer'])    
