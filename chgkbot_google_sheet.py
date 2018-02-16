@@ -95,7 +95,7 @@ def test(m):
     keyboard = types.InlineKeyboardMarkup()
     callback_button = types.InlineKeyboardButton(text='Следующий вопрос', callback_data='next_question')
     keyboard.add(callback_button)
-    sent = bot.send_message(cid, '', reply_markup=keyboard)
+    sent = bot.send_message(cid, ' ', reply_markup=keyboard)
 
 @bot.message_handler(commands=['start'])
 def start(m):
