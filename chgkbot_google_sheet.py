@@ -360,7 +360,7 @@ def callback_inline(call):
             mid = call.message.message_id
             get_random(call.message) 
             keyboard = types.ReplyKeyboardRemove(selective=False)
-            bot.send_message(chat_id=cid, message_id=mid, reply_markup=keyboard)
+            bot.edit_message(chat_id=cid, message_id=mid, reply_markup=keyboard)
 #            bot.delete_message(cid, mid)
             
 @bot.message_handler(commands=['timer'])    
