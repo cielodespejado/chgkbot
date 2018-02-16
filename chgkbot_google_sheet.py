@@ -89,6 +89,14 @@ commands = {  'start': 'Описание бота',
               'timer': 'Запустить таймер'
            }
 
+@bot.message_handler(commands=['test'])
+def test(m):
+    cid = m.chat.id
+    keyboard = types.InlineKeyboardMarkup()
+    callback_button = types.InlineKeyboardButton(text='Следующий вопрос', callback_data='next_question')
+    keyboard.add(callback_button)
+    sent = bot.send_message(cid, '', reply_markup=keyboard)
+
 @bot.message_handler(commands=['start'])
 def start(m):
     cid = m.chat.id
@@ -352,6 +360,8 @@ def callback_inline(call):
             DB = Edit_sheet.edit_sheet(cid, DB)
             sent = bot.edit_message_text(chat_id=cid, message_id=aid[cid], text='Автор выбран')
             set_author = False
+        elif call.data == 'next_question':
+            get_random()    
             
 @bot.message_handler(commands=['timer'])    
 def timer(m):
