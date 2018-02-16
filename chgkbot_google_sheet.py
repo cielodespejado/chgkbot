@@ -261,7 +261,7 @@ def callback_inline(call):
                     bot.send_photo(cid, img, reply_markup=keyboard)
             else:
                 bot.send_message(cid, answ[cid], reply_markup=keyboard)
-            bot.edit_message_text(chat_id=cid, message_id=qid[cid], text=quest[cid])
+            bot.edit_message_reply_markup(chat_id=cid, message_id=qid[cid], reply_markup=None)
         elif call.data == 'int1':
             keyboard = types.InlineKeyboardMarkup()
             button = []
@@ -359,8 +359,8 @@ def callback_inline(call):
         elif call.data == 'next_question':
             mid = call.message.message_id
             get_random(call.message) 
-            bot.edit_message_reply_markup(chat_id=cid, message_id=mid)
-#           bot.delete_message(cid, mid)
+            bot.edit_message_reply_markup(chat_id=cid, message_id=mid, reply_markup=None)
+
             
 @bot.message_handler(commands=['timer'])    
 def timer(m):
