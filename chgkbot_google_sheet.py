@@ -361,7 +361,7 @@ def callback_inline(call):
             get_random(call.message) 
             keyboard = types.ReplyKeyboardRemove(selective=False)
             bot.edit_message_reply_markup(chat_id=cid, message_id=mid, reply_markup=keyboard)
-#            bot.delete_message(cid, mid)
+#           bot.delete_message(cid, mid)
             
 @bot.message_handler(commands=['timer'])    
 def timer(m):
