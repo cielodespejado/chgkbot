@@ -361,8 +361,7 @@ def callback_inline(call):
             sent = bot.edit_message_text(chat_id=cid, message_id=aid[cid], text='Автор выбран')
             set_author = False
         elif call.data == 'next_question':
-            @bot.message_handler(commands=['question']) 
-            get_random(m)    
+            get_random(call.message)    
             
 @bot.message_handler(commands=['timer'])    
 def timer(m):
