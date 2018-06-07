@@ -26,7 +26,7 @@ def get_credentials():
         flow.user_agent = APPLICATION_NAME
         credentials = tools.run_flow(flow, store, flags)
     return credentials
-## Аргументы для четния и записи в Google Sheets:
+## Аргументы для чтения и записи в Google Sheets:
 credentials = get_credentials()
 http = credentials.authorize(httplib2.Http())
 discoveryUrl = ('https://sheets.googleapis.com/$discovery/rest?' 'version=v4')
