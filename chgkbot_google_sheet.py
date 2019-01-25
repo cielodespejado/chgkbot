@@ -77,7 +77,7 @@ end_int = False
 start_int = False
 set_author = False
 global act_year
-act_year = time.gmtime().tm_year 
+
 
 commands = {  'start': 'Описание бота',
               'help': 'Список команд',
@@ -381,6 +381,7 @@ def timer(m):
     bot.delete_message(cid, mid)    
 
 if __name__ == '__main__':
+    act_year = time.gmtime().tm_year 
     bot.polling(none_stop=True) 
 
 
