@@ -158,6 +158,7 @@ def get_random(m):
     
 @bot.message_handler(commands=['set_year'])    
 def set_year(m):
+    act_year = time.gmtime().tm_year
     cid = m.chat.id
     global DB
     if cid not in DB:
