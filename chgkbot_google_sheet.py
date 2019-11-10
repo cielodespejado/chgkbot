@@ -55,10 +55,10 @@ def get_authors():
     values = result.get('values')
     values.sort()
     for i in values:
-        authors[i[0]] = i[1]
         ii = i[0].split()
         k = str(ii)
         ii = ii[1]+' '+ii[0]
+        authors[ii] = i[1]
         if k[2] not in alphabet:
             authors_keys = []
             authors_keys.append(ii)
