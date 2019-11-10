@@ -66,6 +66,7 @@ def get_authors():
         else:
             authors_keys.append(ii)
             alphabet[k[2]] = authors_keys
+    return authors, alphabet
 
 quest = {}
 answ = {}
