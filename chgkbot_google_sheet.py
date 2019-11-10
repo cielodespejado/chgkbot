@@ -56,15 +56,16 @@ def get_authors():
     values.sort()
     for i in values:
         authors[i[0]] = i[1]
-        k = str(i[0].split())
+        ii = i[0].split()
+        k = str(ii)
+        ii = ii[1]+' '+ii[0]
         if k[2] not in alphabet:
             authors_keys = []
-            authors_keys.append(i[0])
+            authors_keys.append(ii)
             alphabet[k[2]] = authors_keys
         else:
-            authors_keys.append(i[0])
+            authors_keys.append(ii)
             alphabet[k[2]] = authors_keys
-    return authors, alphabet
 
 quest = {}
 answ = {}
