@@ -253,6 +253,8 @@ def callback_inline(call):
             time.sleep(5)
             bot.delete_message(cid, mid)
         elif call.data == 'answer':
+            global answ
+            global img_a
             keyboard = types.InlineKeyboardMarkup()
             callback_button = types.InlineKeyboardButton(text='Следующий вопрос', callback_data='next_question')
             keyboard.add(callback_button)
