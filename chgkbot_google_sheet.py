@@ -8,7 +8,7 @@ from collections import namedtuple
 import Edit_sheet
 import httplib2
 import argparse
-from google-api-python-client import discovery
+from googleapiclient import discovery
 from oauth2client import client
 from oauth2client import tools
 from oauth2client.file import Storage
