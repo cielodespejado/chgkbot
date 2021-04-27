@@ -23,7 +23,8 @@ def get_credentials():
 credentials = get_credentials()
 http = credentials.authorize(httplib2.Http())
 discoveryUrl = ('https://sheets.googleapis.com/$discovery/rest?' 'version=v4')
-service = discovery.build('sheets', 'v4', credentials = http)
+#service = discovery.build('sheets', 'v4', credentials = http)
+service = discovery.build('sheets', 'v4', http = http, discoveryServiceUrl = discoveryUrl)
 spreadsheetId = '1zdjZ5UCNZSVlp_R_4DxOm4JFGxsguiSyaIaOON5hB0o'
 
 DB = {}
