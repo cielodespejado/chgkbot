@@ -1,5 +1,6 @@
 import configparser
-import telebot
+import pyTelegramBotAPI
+from pyTelegramBotAPI import telebot
 from telebot import types
 import time
 from time import sleep
