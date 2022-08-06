@@ -5,48 +5,56 @@ import time
 from time import sleep
 import browse
 from collections import namedtuple
-import Edit_sheet
+##import Edit_sheet
 import httplib2
 import argparse
-from googleapiclient import discovery
-from oauth2client import client
-from oauth2client import tools
-from oauth2client.file import Storage
+##from googleapiclient import discovery
+##from oauth2client import client
+##from oauth2client import tools
+##from oauth2client.file import Storage
 
 ## Аутентификация для работы с Google Sheets:
-SCOPES = 'https://www.googleapis.com/auth/spreadsheets'
-CLIENT_SECRET_FILE = 'client_secret.json'
-APPLICATION_NAME = 'Google Sheets API Python Quickstart'
-flags = argparse.ArgumentParser(parents=[tools.argparser]).parse_args()
-def get_credentials():
-    store = Storage('googleapi.json')
-    credentials = store.get()
-    if not credentials or credentials.invalid:
-        flow = client.flow_from_clientsecrets(CLIENT_SECRET_FILE, SCOPES)
-        flow.user_agent = APPLICATION_NAME
-        credentials = tools.run_flow(flow, store, flags)
-    return credentials
+##SCOPES = 'https://www.googleapis.com/auth/spreadsheets'
+##CLIENT_SECRET_FILE = 'client_secret.json'
+##APPLICATION_NAME = 'Google Sheets API Python Quickstart'
+##flags = argparse.ArgumentParser(parents=[tools.argparser]).parse_args()
+##def get_credentials():
+##    store = Storage('googleapi.json')
+##    credentials = store.get()
+##   if not credentials or credentials.invalid:
+##        flow = client.flow_from_clientsecrets(CLIENT_SECRET_FILE, SCOPES)
+##        flow.user_agent = APPLICATION_NAME
+##        credentials = tools.run_flow(flow, store, flags)
+##    return credentials
 ## Аргументы для чтения и записи в Google Sheets:
-credentials = get_credentials()
-http = credentials.authorize(httplib2.Http())
-discoveryUrl = ('https://sheets.googleapis.com/$discovery/rest?' 'version=v4')
-service = discovery.build('sheets', 'v4', http = http, discoveryServiceUrl = discoveryUrl)
-cid_sheetId = '1zdjZ5UCNZSVlp_R_4DxOm4JFGxsguiSyaIaOON5hB0o'
-auth_sheetId = '1K29LUf6awYIgq9WAunhbCL-QBHHZy-CwjqFkYSYtJgY'
+##credentials = get_credentials()
+##http = credentials.authorize(httplib2.Http())
+##discoveryUrl = ('https://sheets.googleapis.com/$discovery/rest?' 'version=v4')
+##service = discovery.build('sheets', 'v4', http = http, discoveryServiceUrl = discoveryUrl)
+##cid_sheetId = '1zdjZ5UCNZSVlp_R_4DxOm4JFGxsguiSyaIaOON5hB0o'
+##auth_sheetId = '1K29LUf6awYIgq9WAunhbCL-QBHHZy-CwjqFkYSYtJgY'
 
 config = configparser.ConfigParser()
 config.read('config.ini')
 bot = telebot.TeleBot(config['DEFAULT']['Token'])
-#bot = telebot.TeleBot(config.token)
+##bot = telebot.TeleBot(config.token)
 
 DB = {}
 db = namedtuple('db', 'year1 year2 author')
 
+def add_to_db(cid):
+    global DB
+    y1 = '2007'
+    y2 = str(time.gmtime().tm_year)
+    a = 'None'    
+    DB[cid] = db(y1, y2, a)
+    return DB
+
 ## Получение файла с настройками пользователей из таблицы
-result = service.spreadsheets().values().get(spreadsheetId=cid_sheetId, range='A2:D', majorDimension='ROWS').execute()
-values = result.get('values')
-for i in values:
-    DB[int(i[0])] = db(i[1],i[2],i[3])
+##result = service.spreadsheets().values().get(spreadsheetId=cid_sheetId, range='A2:D', majorDimension='ROWS').execute()
+##values = result.get('values')
+##for i in values:
+##    DB[int(i[0])] = db(i[1],i[2],i[3])
 
 def get_authors():
     authors = {}
@@ -96,7 +104,7 @@ def start(m):
     cid = m.chat.id
     global DB
     if cid not in DB:
-        DB = Edit_sheet.add_to_sheet(cid)
+        DB = add_to_db(cid)
         bot.send_message(cid, 'Привет, добро пожаловать')
         help(m)  
     elif cid==131041034:
@@ -111,7 +119,7 @@ def help(m):
     cid = m.chat.id
     global DB
     if cid not in DB:
-        DB = Edit_sheet.add_to_sheet(cid)
+        DB = add_to_db(cid)
     help_text = 'Доступны следующие команды: \n'
     for key in commands:  
         help_text += '/' + key + ': '
@@ -128,7 +136,7 @@ def get_random(m):
     global DB
     cid = m.chat.id
     if cid not in DB:
-        DB = Edit_sheet.add_to_sheet(cid)
+        DB = add_to_db(cid)
     y1 = DB[cid].year1
     y2 = DB[cid].year2
     a = DB[cid].author
@@ -164,7 +172,7 @@ def set_year(m):
     cid = m.chat.id
     global DB
     if cid not in DB:
-        DB = Edit_sheet.add_to_sheet(cid)
+        DB =add_to_db(cid)
     global set_author
     set_author = False
     keyboard = types.InlineKeyboardMarkup()
@@ -190,7 +198,7 @@ def set_author(m):
     start_int = False
     cid = m.chat.id
     if cid not in DB:
-        DB = Edit_sheet.add_to_sheet(cid)
+        DB = add_to_db(cid)
     f = get_authors()
     authors = f[0]
     alphabet = f[1]
@@ -209,18 +217,18 @@ def rst_year(m):
     cid = m.chat.id
     global DB
     if cid not in DB:
-        DB = Edit_sheet.add_to_sheet(cid)
+        DB = add_to_db(cid)
     DB[cid] = DB[cid]._replace(year1 = '2007', year2 = str(time.gmtime().tm_year))
-    DB = Edit_sheet.edit_sheet(cid, DB)
+    return DB
     
 @bot.message_handler(commands=['rst_author'])    
 def rst_author(m):
     cid = m.chat.id
     global DB
     if cid not in DB:
-        DB = Edit_sheet.add_to_sheet(cid)
+        DB = add_to_db(cid)
     DB[cid] = DB[cid]._replace(author = 'None')
-    DB = Edit_sheet.edit_sheet(cid, DB)
+    return DB
     
 @bot.callback_query_handler(func=lambda call: True)
 def callback_inline(call):
