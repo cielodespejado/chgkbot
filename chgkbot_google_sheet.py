@@ -59,10 +59,10 @@ def add_to_db(cid):
 def get_authors():
     authors = {}
     alphabet = {}
+    values = []
     ##result = service.spreadsheets().values().get(spreadsheetId=auth_sheetId, range='A1:B', majorDimension='ROWS').execute()
     with open(r'Authors.txt', 'r', encoding='utf-8') as fp:
-        for item in fp:
-            values += item
+        values = fp.readlines()
     values.sort()
     for i in values:
         ii = i[0].split()
