@@ -70,7 +70,7 @@ def get_authors():
         ii = i[0].split()
         k = str(ii)
         ii = ii[1]+' '+ii[0]
-        authors[ii] = i[1]
+        authors[ii] = i[2]
         if k[2] not in alphabet:
             authors_keys = []
             authors_keys.append(ii)
