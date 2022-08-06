@@ -65,20 +65,19 @@ def get_authors():
         values = fp.readlines()
     values.sort()
     for i in values:
-for i in values:
-    i=i.split()
-    i[0]=i[0]+' '+i[1]
-    ii = i[0].split()
-    k = str(ii)
-    ii = ii[1]+' '+ii[0]
-    authors[ii] = i[1]
-    if k[2] not in alphabet:
-        authors_keys = []
-        authors_keys.append(ii)
-        alphabet[k[2]] = authors_keys
-    else:
-        authors_keys.append(ii)
-        alphabet[k[2]] = authors_keys
+        i=i.split()
+        i[0]=i[0]+' '+i[1]
+        ii = i[0].split()
+        k = str(ii)
+        ii = ii[1]+' '+ii[0]
+        authors[ii] = i[1]
+        if k[2] not in alphabet:
+            authors_keys = []
+            authors_keys.append(ii)
+            alphabet[k[2]] = authors_keys
+        else:
+            authors_keys.append(ii)
+            alphabet[k[2]] = authors_keys
     return authors, alphabet
 
 quest = {}
