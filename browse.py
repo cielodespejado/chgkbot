@@ -36,7 +36,7 @@ def get(year1, year2):
                 for n in img_answer:
                     m = n.get('src')
                     img_a.append(m)
-    except HTTPError as e:
+    except HTTPError:
 	break
 
     words = q.split()
