@@ -356,9 +356,9 @@ def callback_inline(call):
             start_int = False
         elif end_int==True and int(call.data) in range(1991,act_year+1):
             DB[cid] = DB[cid]._replace(year2 = call.data)
-            DB = Edit_sheet.edit_sheet(cid, DB)
             sent = bot.edit_message_text(chat_id=cid, message_id=yid[cid], text='Интервал сохранён')
             end_int = False
+            replace DB
         elif set_author==True and call.data in alphabet:
             keyboard = types.InlineKeyboardMarkup(row_width = 2)
             button = []
@@ -368,9 +368,9 @@ def callback_inline(call):
             sent = bot.edit_message_text(chat_id=cid, message_id=aid[cid], text='Выберите автора:', reply_markup=keyboard)  
         elif set_author==True and call.data in authors:
             DB[cid] = DB[cid]._replace(author = authors[call.data])
-            DB = Edit_sheet.edit_sheet(cid, DB)
             sent = bot.edit_message_text(chat_id=cid, message_id=aid[cid], text='Автор выбран')
             set_author = False
+            replace DB
         elif call.data == 'next_question':
             mid = call.message.message_id
             get_random(call.message) 
