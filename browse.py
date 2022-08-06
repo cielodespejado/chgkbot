@@ -11,33 +11,33 @@ def get(year1, year2):
     img_a = []
     url = 'http://db.chgk.info/random/from_'+year1+'-01-01/to_'+year2+'-12-31/types1/'
     print(url)
-    try:        
-		with urllib.request.urlopen(url) as fp:
-			soup = BeautifulSoup(fp, 'html.parser')
-			question = soup.find_all('div','random_question', limit = 1)
-			answer = question[0].find('div','collapsible collapsed')
-			razdatka = question[0].find('div','razdatka')
-				if razdatka:
-					razdatka = question[0].find('div','razdatka').extract()
-					r = razdatka.get_text()
-				q = question[0].get_text()
-				img_question = question[0].find_all(src=True)
-				img_answer = answer.find_all(src=True)
-				if img_question:
-					if len(img_question)==len(img_answer):
-						img_question = []
-					elif len(img_question)>len(img_answer):
-						img_question = img_question[:len(img_question)-len(img_answer)]
-				if img_question:
-					for n in img_question:
-						m = n.get('src')
-						img_q.append(m)
-				if img_answer:
-					for n in img_answer:
-						m = n.get('src')
-						img_a.append(m)
+    try:
+        with urllib.request.urlopen(url) as fp:
+            soup = BeautifulSoup(fp, 'html.parser')
+            question = soup.find_all('div','random_question', limit = 1)
+            answer = question[0].find('div','collapsible collapsed')
+            razdatka = question[0].find('div','razdatka')
+            if razdatka:
+                razdatka = question[0].find('div','razdatka').extract()
+                r = razdatka.get_text()
+            q = question[0].get_text()
+            img_question = question[0].find_all(src=True)
+            img_answer = answer.find_all(src=True)
+            if img_question:
+                if len(img_question)==len(img_answer):
+                    img_question = []
+                elif len(img_question)>len(img_answer):
+                    img_question = img_question[:len(img_question)-len(img_answer)]
+            if img_question:
+                for n in img_question:
+                    m = n.get('src')
+                    img_q.append(m)
+            if img_answer:
+                for n in img_answer:
+                    m = n.get('src')
+                    img_a.append(m)
 	except HTTPError as e:
-		break
+	    break
 
     words = q.split()
     a = b = c = d = e = f = 0
@@ -87,12 +87,12 @@ def get_author(author, year1, year2):
     url = 'https://db.chgk.info/search/questions/author_'+author+'/types1/sort_date/from_'+year1+'-01-01/to_'+year2+'-12-31/limit10000'
     print(url)
 	try:		
-    	with urllib.request.urlopen(url) as fp:
-        	soup = BeautifulSoup(fp, 'html.parser')
-			allquests = soup.find_all('div','question')
+            with urllib.request.urlopen(url) as fp:
+                soup = BeautifulSoup(fp, 'html.parser')
+		allquests = soup.find_all('div','question')
         	tournaments = soup.find_all('dt','title')
 	except HTTPError as e:
-		break
+	    break
     if len(allquests)>0:
         N = random.randint(0,len(allquests)-1)
         tournament = tournaments[N].get_text()
