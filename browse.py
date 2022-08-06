@@ -5,7 +5,6 @@ import sys
 import random
 
 def get(year1, year2):
-	
     quest = ['']
     answ = ['']
     img_q = []
@@ -37,8 +36,8 @@ def get(year1, year2):
                 for n in img_answer:
                     m = n.get('src')
                     img_a.append(m)
-	except HTTPError as e:
-	    break
+    except HTTPError as e:
+	break
 
     words = q.split()
     a = b = c = d = e = f = 0
