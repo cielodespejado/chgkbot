@@ -5,6 +5,7 @@ import sys
 import random
 
 def get(year1, year2):
+	
     quest = ['']
     answ = ['']
     img_q = []
