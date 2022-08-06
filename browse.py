@@ -17,25 +17,25 @@ def get(year1, year2):
 			question = soup.find_all('div','random_question', limit = 1)
 			answer = question[0].find('div','collapsible collapsed')
 			razdatka = question[0].find('div','razdatka')
-			if razdatka:
-				razdatka = question[0].find('div','razdatka').extract()
-				r = razdatka.get_text()
-			q = question[0].get_text()
-			img_question = question[0].find_all(src=True)
-			img_answer = answer.find_all(src=True)
-			if img_question:
-				if len(img_question)==len(img_answer):
-					img_question = []
-				elif len(img_question)>len(img_answer):
-					img_question = img_question[:len(img_question)-len(img_answer)]
-			if img_question:
-				for n in img_question:
-					m = n.get('src')
-					img_q.append(m)
-			if img_answer:
-				for n in img_answer:
-					m = n.get('src')
-					img_a.append(m)
+				if razdatka:
+					razdatka = question[0].find('div','razdatka').extract()
+					r = razdatka.get_text()
+				q = question[0].get_text()
+				img_question = question[0].find_all(src=True)
+				img_answer = answer.find_all(src=True)
+				if img_question:
+					if len(img_question)==len(img_answer):
+						img_question = []
+					elif len(img_question)>len(img_answer):
+						img_question = img_question[:len(img_question)-len(img_answer)]
+				if img_question:
+					for n in img_question:
+						m = n.get('src')
+						img_q.append(m)
+				if img_answer:
+					for n in img_answer:
+						m = n.get('src')
+						img_a.append(m)
 	except HTTPError as e:
 		break
 
