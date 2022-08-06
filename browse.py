@@ -10,6 +10,7 @@ def get(year1, year2):
     img_q = []
     img_a = []
     url = 'http://db.chgk.info/random/from_'+year1+'-01-01/to_'+year2+'-12-31/types1/'
+    print(url)
     with urllib.request.urlopen(url) as fp:
         soup = BeautifulSoup(fp, 'html.parser')
         question = soup.find_all('div','random_question', limit = 1)
@@ -81,6 +82,7 @@ def get_author(author, year1, year2):
     img_q = []
     img_a = []
     url = 'https://db.chgk.info/search/questions/author_'+author+'/types1/sort_date/from_'+year1+'-01-01/to_'+year2+'-12-31/limit10000'
+    print(url)
     with urllib.request.urlopen(url) as fp:
         soup = BeautifulSoup(fp, 'html.parser')
         allquests = soup.find_all('div','question')
